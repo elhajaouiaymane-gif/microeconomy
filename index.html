@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Micro TD Replica &mdash; Examen 3 Juin</title>
+  <style>
+    :root{
+      --bg:#050816;--bg2:#0f172a;--panel:rgba(15,23,42,.90);--panel2:rgba(30,41,59,.84);
+      --text:#f8fafc;--muted:#aab6c7;--line:rgba(255,255,255,.13);--blue:#38bdf8;--purple:#a78bfa;
+      --green:#22c55e;--red:#ef4444;--orange:#f59e0b;--yellow:#fde047;--shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:24px;--soft:rgba(255,255,255,.055);--soft2:rgba(255,255,255,.09);
+    }
+    body.light{
+      --bg:#f8fafc;--bg2:#e2e8f0;--panel:rgba(255,255,255,.94);--panel2:rgba(241,245,249,.95);
+      --text:#0f172a;--muted:#475569;--line:rgba(15,23,42,.14);--shadow:0 20px 55px rgba(15,23,42,.14);
+      --soft:rgba(15,23,42,.04);--soft2:rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(circle at 14% 8%,rgba(56,189,248,.18),transparent 28%),radial-gradient(circle at 92% 4%,rgba(167,139,250,.16),transparent 26%),radial-gradient(circle at 50% 108%,rgba(34,197,94,.10),transparent 30%),linear-gradient(180deg,var(--bg),var(--bg2));
+    }
+    .app{width:min(1100px,96vw);margin:0 auto;padding:14px 0 34px}
+    .hero{border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(167,139,250,.10));box-shadow:var(--shadow);padding:18px}
+    .hero-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    h1{margin:0;font-size:clamp(24px,3.8vw,44px);line-height:.96;letter-spacing:-.055em}
+    p{line-height:1.6}
+    .subtitle{color:#d5deee;margin:8px 0 0;line-height:1.6}
+    body.light .subtitle{color:#334155}
+    .countdown-banner{text-align:center;padding:6px 10px;background:linear-gradient(90deg,rgba(239,68,68,.2),rgba(245,158,11,.2));border:1px solid var(--line);border-radius:10px;margin-top:8px;font-weight:900;font-size:14px}
+    button,.btn{
+      border:0;cursor:pointer;border-radius:13px;padding:9px 12px;background:var(--blue);color:#06111f;font-weight:950;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);transition:transform .08s ease,filter .15s ease;
+      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:13px;
+    }
+    button:hover{transform:translateY(-1px);filter:brightness(1.05)}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    button.secondary{background:#c4b5fd} button.good{background:#86efac} button.warn{background:#fde68a}
+    button.danger{background:#fb7185} button.ghost{background:rgba(51,65,85,.85);color:var(--text);border:1px solid var(--line);box-shadow:none}
+    button.soft{background:rgba(56,189,248,.12);color:var(--text);border:1px solid rgba(56,189,248,.34);box-shadow:none}
+    button.active{outline:2px solid var(--yellow);outline-offset:2px}
+    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+    .stat{border:1px solid var(--line);background:rgba(8,17,31,.52);border-radius:14px;padding:10px;min-height:60px}
+    body.light .stat{background:rgba(255,255,255,.58)}
+    .stat span{color:var(--muted);font-size:10px;font-weight:950;text-transform:uppercase}
+    .stat b{display:block;margin-top:4px;font-size:20px}
+    .progress-wrap{margin-top:10px;height:10px;border-radius:999px;background:rgba(148,163,184,.25);overflow:hidden}
+    .progress{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--purple),var(--green));transition:width .25s}
+    .nav{position:sticky;top:6px;z-index:30;display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;border:1px solid var(--line);border-radius:18px;padding:8px;backdrop-filter:blur(16px);background:rgba(15,23,42,.74)}
+    body.light .nav{background:rgba(255,255,255,.76)}
+    .nav button{box-shadow:none;padding:8px 10px;font-size:12px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);gap:12px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow);padding:16px}
+    .side{display:grid;gap:12px;align-content:start}
+    .screen{display:none}.screen.show{display:block}
+    .mini{color:var(--muted);font-size:13px;line-height:1.6}
+    .muted{color:var(--muted)}
+    .box{border:1px solid rgba(56,189,248,.25);border-radius:16px;padding:12px;background:rgba(56,189,248,.08);margin-top:10px}
+    .tag{
+      display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(255,255,255,.075);padding:5px 8px;color:var(--text);font-size:11px;font-weight:900;
+    }
+    .tag.purple{border-color:rgba(167,139,250,.30);background:rgba(167,139,250,.12);color:#ddd6fe}
+    .tag.green{border-color:rgba(34,197,94,.28);background:rgba(34,197,94,.12);color:#bbf7d0}
+    .tag.orange{border-color:rgba(245,158,11,.30);background:rgba(245,158,11,.12);color:#fed7aa}
+    body.light .tag.purple{color:#5b21b6} body.light .tag.green{color:#166534} body.light .tag.orange{color:#9a3412}
+    .mode-card{border:1px solid var(--line);background:var(--panel2);border-radius:16px;padding:12px;cursor:pointer;transition:transform .08s,border-color .15s}
+    .mode-card:hover{transform:translateY(-1px);border-color:rgba(56,189,248,.65)}
+    .mode-card b{display:block;margin-bottom:4px}
+    .formula{font-family:Consolas,"Courier New",monospace;border:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.25);border-radius:10px;padding:8px 10px;margin:6px 0;overflow-x:auto;color:#e0f2fe;font-size:.95em;line-height:1.5}
+    body.light .formula{background:rgba(15,23,42,.06);color:#0f172a}
+    .formula sup,.option sup{font-size:.7em;vertical-align:super}
+    .formula sub,.option sub{font-size:.7em;vertical-align:sub}
+    .pattern{border-left:3px solid var(--blue);padding:8px 10px;margin:8px 0;background:var(--soft);border-radius:0 12px 12px 0;line-height:1.5;font-size:13px}
+    .q-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+    .qtext{font-size:clamp(17px,2vw,22px);line-height:1.45;font-weight:950;letter-spacing:-.03em;margin:6px 0 12px}
+    .qtext sup,.option sup{font-size:.65em;vertical-align:super}
+    .qtext sub,.option sub{font-size:.65em;vertical-align:sub}
+    .options{display:grid;gap:8px}
+    .option{border:1px solid var(--line);border-radius:14px;padding:11px;background:var(--panel2);cursor:pointer;line-height:1.45;transition:border-color .15s,background .15s;font-size:14px}
+    .option:hover{border-color:var(--blue)}
+    .option.correct{border-color:var(--green);background:rgba(34,197,94,.18)}
+    .option.wrong{border-color:var(--red);background:rgba(239,68,68,.18)}
+    .option.eliminated{opacity:.35;text-decoration:line-through;pointer-events:none}
+    .feedback{display:none;margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:12px;line-height:1.55;background:var(--soft);font-size:14px}
+    .feedback.show{display:block}
+    .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .hidden{display:none!important}
+    .result-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:10px 0}
+    .result-box{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:10px}
+    .result-box b{display:block;font-size:20px;margin-top:3px}
+    .flash{min-height:200px;display:grid;place-items:center;text-align:center;border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(167,139,250,.10));padding:18px;cursor:pointer;user-select:none}
+    .flash .big{font-size:clamp(20px,3vw,30px);font-weight:950;line-height:1.2}
+    .flash .small{margin-top:10px;color:var(--muted);font-size:13px}
+    .ref-card{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:10px;margin:6px 0}
+    .ref-card b{color:var(--blue)}
+    .ref-card .ans{color:var(--green);font-weight:950}
+    .trap{border-left:3px solid var(--red);padding:8px 10px;margin:6px 0;background:rgba(239,68,68,.08);border-radius:0 10px 10px 0;font-size:13px;line-height:1.5}
+    .trap b{color:#fecaca}
+    .strategy-card{border:1px solid var(--line);background:rgba(56,189,248,.06);border-radius:14px;padding:10px;margin:6px 0;font-size:13px;line-height:1.5}
+    @media(max-width:860px){
+      .layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.nav{position:static}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>Micro &mdash; Examen 3 Juin</h1>
+          <p class="subtitle"><b>TD Replica.</b> 16 questions exactement comme les TD. Reconnaissance de patterns instantan&eacute;e.</p>
+          <div class="countdown-banner">Examen 3 Juin &mdash; TD replica : 16 questions, tous les patterns TD</div>
+        </div>
+        <div>
+          <button class="ghost" onclick="toggleTheme()">Theme</button>
+          <button class="good" onclick="startExam()">Examen</button>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>Score</span><b id="scoreBox">0</b></div>
+        <div class="stat"><span>Question</span><b id="countBox">0/0</b></div>
+        <div class="stat"><span>Pr&eacute;cision</span><b id="accuracyBox">0%</b></div>
+        <div class="stat"><span>Timer</span><b id="timerBox">--</b></div>
+        <div class="stat"><span>Meilleur</span><b id="bestBox">0%</b></div>
+      </div>
+      <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+    </header>
+
+    <nav class="nav">
+      <button id="tabDashboard" class="active" onclick="showScreen('dashboard')">Dashboard</button>
+      <button id="tabQcm" class="soft" onclick="showScreen('qcm')">QCM</button>
+      <button id="tabPractice" class="secondary" onclick="startExam()">Examen</button>
+      <button id="tabPatterns" class="soft" onclick="showScreen('patterns')">Patterns</button>
+      <button id="tabFlashcards" class="warn" onclick="showScreen('flashcards')">Flash</button>
+      <button class="danger" onclick="resetProgress()">Reset</button>
+    </nav>
+
+    <main class="layout">
+      <section class="card">
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="screen show">
+          <h2>Strat&eacute;gie TD Replica</h2>
+          <div class="strategy-card"><b>Si 2h avant l&apos;examen :</b><br>1. Parcours les <b>16 patterns TD</b> (onglet &rarr; 8 min)<br>2. Fais les <b>16 QCM TD</b> une fois (15 min)<br>3. Relis les <b>13 traps TD</b> (5 min)<br>4. Examen blanc 8 questions chrono (10 min)<br>5. Relis les <b>14 formules</b> (2 min)</div>
+          <div class="strategy-card"><b>Si 1 jour avant :</b><br>1. Fais les <b>16 QCM</b> en mode entra&icirc;nement<br>2. Revois les erreurs<br>3. Apprends les <b>16 patterns TD</b> par c&oelig;ur<br>4. Fais <b>2 examens blancs</b> chrono</div>
+          <div class="strategy-card"><b>Pendant l&apos;examen :</b><br>1. Identifie le <b>type TD</b> (production ? co&ucirc;ts ? march&eacute; ?)<br>2. Applique la <b>formule du pattern</b> directement<br>3. V&eacute;rifie les pi&egrave;ges : CM vs Cm, d&eacute;riv&eacute;e, division par q<br>4. Pour les questions multi-&eacute;tapes : suis l&apos;ordre CT &rarr; Cm &rarr; offre &rarr; profit</div>
+          <div class="box">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px">
+              <div class="mode-card" onclick="showScreen('qcm')"><b>16 QCM TD</b><span class="mini">Tous les patterns</span></div>
+              <div class="mode-card" onclick="startExam()"><b>Examen</b><span class="mini">8 questions chrono</span></div>
+              <div class="mode-card" onclick="startMistakes()"><b>Erreurs</b><span class="mini">Revois tes fautes</span></div>
+              <div class="mode-card" onclick="showScreen('patterns')"><b>Patterns</b><span class="mini">Formules + astuces</span></div>
+              <div class="mode-card" onclick="showScreen('flashcards')"><b>Flash</b><span class="mini">Cartes m&eacute;moire</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- QCM -->
+        <section id="qcm" class="screen">
+          <h2>16 QCM TD &mdash; Exactement comme les TD</h2>
+          <p class="mini">Tous les patterns TD couverts. Ma&icirc;trise-les et l&apos;examen est r&eacute;ussi.</p>
+          <div id="quizZone">
+            <div class="q-meta"><span id="qTag" class="tag purple">Pattern</span><span id="qDiff" class="tag orange">Niveau</span><span id="qMode" class="tag green">Mode</span></div>
+            <div id="qText" class="qtext"></div>
+            <div id="optionsBox" class="options"></div>
+            <div id="quizActions" class="actions">
+              <button class="warn" onclick="fiftyFifty()">50/50</button>
+              <button class="secondary" onclick="skipQuestion()">Passer</button>
+            </div>
+            <div id="feedbackBox" class="feedback"></div>
+            <div id="nextActions" class="actions hidden"><button onclick="nextQuestion()">Suivante &rarr;</button><button class="ghost" onclick="finishQuiz()">Terminer</button></div>
+          </div>
+          <div class="actions" style="margin-top:10px"><button class="soft" onclick="startPractice()">Nouvelle s&eacute;rie</button><button class="ghost" onclick="showScreen('dashboard')">Retour</button></div>
+        </section>
+
+        <!-- RESULTS -->
+        <section id="results" class="screen">
+          <h2>R&eacute;sultats</h2><div id="resultBox"></div>
+          <div class="actions"><button onclick="showScreen('qcm')">Refaire QCM</button><button class="secondary" onclick="startMistakes()">Refaire erreurs</button><button class="good" onclick="startExam()">Examen</button><button class="ghost" onclick="showScreen('dashboard')">Dashboard</button></div>
+        </section>
+
+        <!-- PATTERNS -->
+        <section id="patterns" class="screen">
+          <h2>Les 16 patterns TD &mdash; Reconnais et r&eacute;ponds vite</h2>
+          <p class="mini">Chaque pattern = un type d&apos;exercice TD.</p>
+          <div class="ref-card"><b>1. PM (productivit&eacute; moyenne)</b><br>&rarr; Pattern: PM<sub>L</sub> = Q / L<br>&rarr; Exemple: Q=100, L=5 &rarr; PM = 20<br>&rarr; Trap: confusion avec Pm<br><span class="ans">&rArr; Shortcut: PM = total/total, Pm = variation</span></div>
+          <div class="ref-card"><b>2. Pm (productivit&eacute; marginale)</b><br>&rarr; Pattern: Pm<sub>L</sub> = &Delta;Q / &Delta;L<br>&rarr; Exemple: Q:80&rarr;96, L:4&rarr;5 &rarr; Pm = 16<br>&rarr; Trap: oublier de diviser par &Delta;L<br><span class="ans">&rArr; Shortcut: variation de Q / variation de L</span></div>
+          <div class="ref-card"><b>3. TMST</b><br>&rarr; Pattern: TMST = Pm<sub>L</sub> / Pm<sub>K</sub><br>&rarr; Exemple: Cobb-Douglas Q=20L<sup>0,7</sup>K<sup>0,3</sup> &rarr; TMST = 14K/6L<br>&rarr; Trap: inverser PmL/PmK ou confondre K et L<br><span class="ans">&rArr; Shortcut: PmL/PmK, les L et K s\'annulent</span></div>
+          <div class="ref-card"><b>4. Rendements d&apos;&eacute;chelle</b><br>&rarr; Pattern: Cobb-Douglas &alpha;+&beta; = degr&eacute; d&apos;homog&eacute;n&eacute;it&eacute;<br>&rarr; Exemple: &alpha;+&beta;=1 &rarr; constants ; &gt;1 &rarr; croissants ; &lt;1 &rarr; d&eacute;croissants<br><span class="ans">&rArr; Shortcut: somme des exposants</span></div>
+          <div class="ref-card"><b>5. Optimum producteur</b><br>&rarr; Pattern: TMST = P<sub>L</sub>/P<sub>K</sub><br>&rarr; Exemple: TMST=3K/2L, P<sub>L</sub>=6, P<sub>K</sub>=2 &rarr; 3K/2L=3 &rarr; K=2L<br><span class="ans">&rArr; Shortcut: TMST = rapport des prix, puis isole K=f(L)</span></div>
+          <div class="ref-card"><b>6. CF (co&ucirc;t fixe)</b><br>&rarr; Pattern: CF = terme constant dans CT(q)<br>&rarr; Exemple: CT = q<sup>2</sup>+6q+100 &rarr; CF = 100<br><span class="ans">&rArr; Shortcut: CF = constante, ne d&eacute;pend pas de q</span></div>
+          <div class="ref-card"><b>7. Cm (co&ucirc;t marginal)</b><br>&rarr; Pattern: Cm = dCT/dq (d&eacute;riv&eacute;e)<br>&rarr; Exemple: CT = q<sup>2</sup>+6q+100 &rarr; Cm = 2q+6<br>&rarr; Trap: oublier le 6q &rarr; 6<br><span class="ans">&rArr; Shortcut: q<sup>2</sup>&rarr;2q, q&rarr;coeff, constante&rarr;0</span></div>
+          <div class="ref-card"><b>8. CVM (co&ucirc;t variable moyen)</b><br>&rarr; Pattern: CVM = CV / q<br>&rarr; Exemple: CT=3y<sup>2</sup>+60y+7000 &rarr; CV=3y<sup>2</sup>+60y &rarr; CVM=3y+60<br>&rarr; Trap: oublier que CF n&apos;est pas dans CV<br><span class="ans">&rArr; Shortcut: CT &minus; CF = CV, puis diviser par q</span></div>
+          <div class="ref-card"><b>9. CM (co&ucirc;t moyen)</b><br>&rarr; Pattern: CM = CT / q<br>&rarr; Exemple: CT=3q<sup>2</sup>+60q+7000 &rarr; CM=3q+60+7000/q<br>&rarr; Trap: oublier de diviser CF par q<br><span class="ans">&rArr; Shortcut: diviser chaque terme de CT par q</span></div>
+          <div class="ref-card"><b>10. Offre (CPP)</b><br>&rarr; Pattern: p = Cm &rarr; isoler q(p)<br>&rarr; Exemple: Cm=2q+6 &rarr; p=2q+6 &rarr; q=0,5p&minus;3<br>&rarr; Trap: utiliser p=CM au lieu de p=Cm<br><span class="ans">&rArr; Shortcut: d&eacute;river CT, poser p=Cm, isoler q</span></div>
+          <div class="ref-card"><b>11. Profit multi-step</b><br>&rarr; Pattern: CT &rarr; Cm &rarr; q* &rarr; &pi;<br>&rarr; Formule: &Eacute;tape 1: Cm = dCT/dq. &Eacute;tape 2: p = Cm &rarr; q*. &Eacute;tape 3: &pi; = p&middot;q &minus; CT(q)<br>&rarr; Exemple: CT=y&sup2;+10y+144, p=70 &rarr; Cm=2y+10 &rarr; 70=2y+10 &rarr; y=30 &rarr; &pi;=756<br>&rarr; Trap: oublier CF dans CT ou oublier une &eacute;tape<br><span class="ans">&rArr; Shortcut: Deriver &rarr; p=Cm &rarr; q* &rarr; RT &minus; CT</span></div>
+          <div class="ref-card"><b>12. March&eacute; multi-step</b><br>&rarr; Pattern: QO=QD &rarr; p* &rarr; Q* &rarr; q* &rarr; N<br>&rarr; Formule: &Eacute;tape 1: QO=QD &rarr; p*. &Eacute;tape 2: Q*=QO(p*). &Eacute;tape 3: p=Cm &rarr; q*. &Eacute;tape 4: N=Q*/q*<br>&rarr; Exemple: QO=3p&minus;10, QD=90&minus;2p, Cm=2q+10 &rarr; p=20, Q=50, q=5, N=10<br>&rarr; Trap: oublier -10 dans QO, ou d&eacute;riv&eacute;e fausse<br><span class="ans">&rArr; Shortcut: QO=QD &rarr; p ; p=Cm &rarr; q ; N = Q/q</span></div>
+          <div class="ref-card"><b>13. Relation Cm / CM</b><br>&rarr; Pattern: Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;<br>&rarr; R&egrave;gle: Le marginal tire le moyen vers lui<br>&rarr; Exemple: Cm=2q+6, CM=q+6+100/q &rarr; &agrave; q=10: Cm=26, CM=26 &rarr; Cm=CM au min CM<br>&rarr; Trap: croire que CM est toujours au-dessus<br><span class="ans">&rArr; Shortcut: marginal &lt; moyen &rarr; moyen baisse</span></div>
+          <div class="ref-card"><b>14. Seuil de fermeture</b><br>&rarr; Pattern: p &lt; min CVM &rarr; q=0 (fermeture court terme)<br>&rarr; Formule: min CVM = prix plancher. Si p en dessous, produire 0<br>&rarr; Exemple: CVM = y+6 &rarr; min CVM = 6. Si p=5 &lt; 6 &rarr; q=0<br>&rarr; Trap: confondre avec seuil de rentabilit&eacute; (min CM)<br><span class="ans">&rArr; Shortcut: Fermeture = min CVM (pas CM). Toujours min CVM &lt; min CM</span></div>
+          <div class="ref-card"><b>15. Seuil de rentabilit&eacute;</b><br>&rarr; Pattern: p &ge; min CM &rarr; profit &ge; 0<br>&rarr; Formule: min CM = prix de rentabilit&eacute;. Au-dessus = profit positif<br>&rarr; Exemple: CM = y+6+100/y &rarr; min CM = 26 &agrave; y=10. p=30 &gt; 26 &rarr; profit &gt; 0<br>&rarr; Trap: donner q (10) au lieu de p (26)<br><span class="ans">&rArr; Shortcut: Rentabilit&eacute; = min CM. Profit nul &agrave; ce prix exact</span></div>
+          <div class="ref-card"><b>16. D&eacute;cision de production</b><br>&rarr; Pattern: Comparer p aux seuils pour d&eacute;cider<br>&rarr; R&egrave;gle: p &lt; min CVM &rarr; q=0 (fermer). min CVM &lt; p &lt; min CM &rarr; produire mais perte. p &gt; min CM &rarr; profit &gt; 0<br>&rarr; Exemple: min CVM=6, min CM=26. p=10 &rarr; produire avec perte. p=30 &rarr; profit<br>&rarr; Trap: fermer d&egrave;s que p &lt; min CM (faux: on produit tant que p &gt; min CVM)<br><span class="ans">&rArr; Shortcut: Court terme: comparer &agrave; min CVM. Long terme: comparer &agrave; min CM</span></div>
+          <div class="box" style="margin-top:10px"><b>Les 14 formules &agrave; savoir par c&oelig;ur :</b><br>1. PM = Q/L &nbsp; 2. Pm = &Delta;Q/&Delta;L &nbsp; 3. TMST = PmL/PmK &nbsp; 4. &alpha;+&beta; = degr&eacute; homog. &nbsp; 5. CT = CF + CV &nbsp; 6. CM = CT/q &nbsp; 7. CVM = CV/q &nbsp; 8. Cm = dCT/dq &nbsp; 9. p = Cm (offre) &nbsp; 10. &pi; = p&middot;q &minus; CT(q) &nbsp; 11. QO = QD &nbsp; 12. N = Q/q &nbsp; 13. Fermeture = min CVM &nbsp; 14. Rentabilit&eacute; = min CM</div>
+        </section>
+
+        <!-- FLASHCARDS -->
+        <section id="flashcards" class="screen">
+          <h2>Flashcards TD &mdash; Derni&egrave;re r&eacute;vision</h2>
+          <div class="flash" onclick="flipFlashcard()"><div><div id="flashBig" class="big">Nouvelle carte</div><div id="flashSmall" class="small">Clique pour r&eacute;v&eacute;ler.</div></div></div>
+          <div class="actions"><button onclick="newFlashcard()">Nouvelle</button><button class="secondary" onclick="flipFlashcard()">Retourner</button></div>
+        </section>
+      </section>
+
+      <aside class="side">
+        <section class="card">
+          <h2>14 formules TD</h2>
+          <div class="formula">PM<sub>L</sub> = Q / L</div>
+          <div class="formula">Pm<sub>L</sub> = &Delta;Q / &Delta;L</div>
+          <div class="formula">TMST = Pm<sub>L</sub> / Pm<sub>K</sub></div>
+          <div class="formula">CT = CF + CV</div>
+          <div class="formula">CM = CT / q</div>
+          <div class="formula">CVM = CV / q</div>
+          <div class="formula">Cm = dCT / dq</div>
+          <div class="formula">CPP : p = Cm</div>
+          <div class="formula">&pi; = p&middot;q &minus; CT(q)</div>
+          <div class="formula">Q<sub>O</sub> = Q<sub>D</sub></div>
+          <div class="formula">N = Q / q</div>
+          <div class="formula">Fermeture = min CVM</div>
+          <div class="formula">Rentabilit&eacute; = min CM</div>
+          <div class="formula">Cm &lt; CM &rarr; CM &darr;</div>
+        </section>
+        <section class="card">
+          <h2>13 Traps TD</h2>
+          <div class="trap"><b>1. PM vs Pm</b><br>Trap: PM = &Delta;Q/&Delta;L<br>Vrai: PM = Q/L (total), Pm = &Delta;Q/&Delta;L (variation)<br>R&egrave;gle: &laquo;moyenne&raquo; = total/total, &laquo;marginale&raquo; = variation</div>
+          <div class="trap"><b>2. D&eacute;riv&eacute;e CT</b><br>Trap: q<sup>2</sup> &rarr; q<br>Vrai: q<sup>2</sup> &rarr; 2q<br>R&egrave;gle: puissance descend en multipliant</div>
+          <div class="trap"><b>3. CM vs Cm</b><br>Trap: p = CM<br>Vrai: p = Cm en CPP<br>R&egrave;gle: CM = CT/q (moyen), Cm = dCT/dq (marginal)</div>
+          <div class="trap"><b>4. Oubli CF dans CM</b><br>Trap: CM = 3q+60 (oubli 7000/q)<br>Vrai: CM = 3q+60+7000/q<br>R&egrave;gle: diviser CHAQUE terme de CT par q</div>
+          <div class="trap"><b>5. CF dans CVM</b><br>Trap: CVM = (3q<sup>2</sup>+60q+7000)/q<br>Vrai: CVM = (3q<sup>2</sup>+60q)/q = 3q+60<br>R&egrave;gle: enlever CF (constante) d&apos;abord</div>
+          <div class="trap"><b>6. Signe offre inverse</b><br>Trap: p=2q+6 &rarr; q=2p+6<br>Vrai: q = 0,5p&minus;3<br>R&egrave;gle: isoler q : p&rarr;q = (p&minus;b)/2</div>
+          <div class="trap"><b>7. TMST invers&eacute;</b><br>Trap: TMST = PmK/PmL<br>Vrai: TMST = PmL/PmK<br>R&egrave;gle: travail/capital, toujours PmL/PmK</div>
+          <div class="trap"><b>8. Confusion Q* et q*</b><br>Trap: N = q*/Q*<br>Vrai: N = Q*/q*<br>R&egrave;gle: Q* = march&eacute; total, q* = une firme</div>
+          <div class="trap"><b>9. Seuil fermeture vs rentabilit&eacute;</b><br>Trap: seuil fermeture = min CM<br>Vrai: fermeture = min CVM, rentabilit&eacute; = min CM<br>R&egrave;gle: CVM < CM (car CF non couvert)</div>
+          <div class="trap"><b>10. Profit oubli CT</b><br>Trap: &pi; = p&middot;q (oubli de CT)<br>Vrai: &pi; = RT &minus; CT = p&middot;q &minus; CT(q)<br>R&egrave;gle: recette totale moins co&ucirc;t total</div>
+          <div class="trap"><b>11. Oubli d&apos;&eacute;tape profit multi-step</b><br>Trap: &pi; = p&middot;q (RT) sans calculer CT<br>Vrai: &pi; = RT &minus; CT. Il faut d&apos;abord trouver q* par p=Cm, puis calculer CT(q*)<br>R&egrave;gle: q* dans Cm &rarr; CT dans CT(q*) &rarr; &pi; = RT &minus; CT</div>
+          <div class="trap"><b>12. Signe dans &eacute;quation d&apos;&eacute;quilibre</b><br>Trap: 5p&minus;50 = 2050&minus;20p &rarr; 5p&minus;20p = 2050&minus;50<br>Vrai: 5p&minus;50 = 2050&minus;20p &rarr; 5p+20p = 2050+50 &rarr; 25p=2100<br>R&egrave;gle: les p d&apos;un c&ocirc;t&eacute;, les constantes de l&apos;autre, en CHANGEANT les signes</div>
+          <div class="trap"><b>13. D&eacute;cision production court terme</b><br>Trap: si p &lt; min CM &rarr; fermer<br>Vrai: on ferme seulement si p &lt; min CVM. Entre min CVM et min CM, on produit avec perte<br>R&egrave;gle: court terme &rarr; comparer &agrave; CVM (pas CM). On supporte la perte si on couvre les CV</div>
+        </section>
+        <section class="card">
+          <h2>Donn&eacute;es</h2>
+          <p class="mini">Progression sauvegard&eacute;e auto.</p>
+          <div class="actions" style="margin-top:6px">
+            <button class="ghost" onclick="exportProgress()">Exporter</button>
+            <button class="ghost" onclick="importProgress()">Importer</button>
+          </div>
+          <textarea id="progressText" placeholder="JSON" style="min-height:50px;font-size:11px;padding:6px"></textarea>
+        </section>
+      </aside>
+    </main>
+    <div class="footer" style="text-align:center;color:var(--muted);padding-top:16px;font-size:12px">Micro TD Replica &mdash; 16 QCM &mdash; Examen 3 Juin</div>
+  </div>
+
+<script>
+'use strict';
+const KEY='micro_td_v1';
+const state=loadState();
+var quiz=[],idx=0,score=0,answered=0,correct=0,skipped=0,streak=0,locked=false,mode='TD Replica 16Q',negative=false,timer=null,timeLeft=null,flash=null,flipped=false,fiftyUsed=false;
+
+function $(id){return document.getElementById(id)}
+function loadState(){try{return Object.assign({xp:0,best:0,mistakes:[],theme:'dark'},JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return {xp:0,best:0,mistakes:[],theme:'dark'}}}
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
+function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t}return r}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+
+// ===== 14 QUESTIONS — TD patterns only =====
+var Q=function(pat,diff,tag,q,o,a,exp,short){return {pat:pat,diff:diff,tag:tag,q:q,o:o,a:a,exp:exp,short:short}};
+var QUESTIONS = [
+  // === PART 1: PRODUCTION (Q1-Q5) ===
+  // Q1. PM = Q/L
+  Q('Production','Facile','PM',
+    'Si Q = 100 avec L = 5 travailleurs, que vaut PM<sub>L</sub> ?',
+    ['5 (L/Q)','20','100 (Q)','105 (Q+L)'],
+    1,
+    'Pattern: PM &rarr; PM<sub>L</sub> = Q/L = 100/5 = 20. C\'est la production moyenne par travailleur.',
+    'PM = Q/L = 100/5 = 20'),
+
+  // Q2. Pm = Delta Q / Delta L
+  Q('Production','Facile','Pm',
+    'Si Q passe de 80 &agrave; 96 quand L passe de 4 &agrave; 5, que vaut Pm<sub>L</sub> ?',
+    ['10','12','14','16'],
+    3,
+    'Pattern: Pm &rarr; Pm<sub>L</sub> = &Delta;Q/&Delta;L = (96&minus;80)/(5&minus;4) = 16.',
+    'Pm = &Delta;Q/&Delta;L = 16'),
+
+  // Q3. TMST = PmL / PmK
+  Q('Production','Moyen','TMST',
+    'Si Q = 20L<sup>0,7</sup>K<sup>0,3</sup>, le TMST simplifi&eacute; est :',
+    ['14K/6L','6K/14L (invers&eacute;)','14L/6K (PmK/PmL)','3K/7L (exposants faux)'],
+    0,
+    'Pattern: TMST &rarr; Pm<sub>L</sub>=14L<sup>&minus;0,3</sup>K<sup>0,3</sup>, Pm<sub>K</sub>=6L<sup>0,7</sup>K<sup>&minus;0,7</sup>. TMST = (14K)/(6L).',
+    'TMST = PmL/PmK = 14K/6L'),
+
+  // Q4. Rendements d\'echelle
+  Q('Production','Moyen','Rendements',
+    'Si Q = 50L<sup>0,6</sup>K<sup>0,4</sup>, les rendements d\'&eacute;chelle sont :',
+    ['Croissants (&alpha;+&beta; &gt; 1)','Constants (&alpha;+&beta; = 1)','D&eacute;croissants (&alpha;+&beta; &lt; 1)','Ind&eacute;termin&eacute;s'],
+    1,
+    'Pattern: Rendements &rarr; &alpha;+&beta; = 0,6+0,4 = 1 &rarr; rendements constants.',
+    '&alpha;+&beta; = 1 &rarr; constants'),
+
+  // Q5. Optimum: TMST = PL/PK
+  Q('Production','Moyen','Optimum',
+    '&Agrave; l\'optimum du producteur, TMST = 3K/2L, P<sub>L</sub> = 6, P<sub>K</sub> = 2. La relation K = f(L) est :',
+    ['K = L','K = 2L','K = 3L','K = 0,5L'],
+    1,
+    'Pattern: Optimum &rarr; TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; 3K/2L = 6/2 = 3 &rarr; 3K = 6L &rarr; K = 2L.',
+    'K = 2L'),
+
+  // === PART 2: COUTS + OFFRE (Q6-Q10) ===
+  // Q6. CF = constante
+  Q('Co&ucirc;ts','Facile','CF',
+    'Si CT(q) = q<sup>2</sup> + 6q + 100, le co&ucirc;t fixe CF vaut :',
+    ['q<sup>2</sup> + 6q (partie variable)','100','q<sup>2</sup>','6q + 100'],
+    1,
+    'Pattern: CF &rarr; CF = terme constant = 100. Il ne d&eacute;pend pas de q.',
+    'CF = constante = 100'),
+
+  // Q7. Cm = dCT/dq
+  Q('Co&ucirc;ts','Facile','Cm',
+    'Si CT(q) = q<sup>2</sup> + 6q + 100, que vaut le co&ucirc;t marginal Cm ?',
+    ['q + 6 + 100/q (CM)','2q + 6','q + 6 (d&eacute;riv&eacute;e fausse)','2q (oubli du 6q)'],
+    1,
+    'Pattern: Cm &rarr; Cm = dCT/dq = 2q + 6. D&eacute;riv&eacute;e: q<sup>2</sup>&rarr;2q, 6q&rarr;6, 100&rarr;0.',
+    'Cm = 2q + 6'),
+
+  // Q8. CVM = CV/q
+  Q('Co&ucirc;ts','Moyen','CVM',
+    'Si CT = 3y<sup>2</sup> + 60y + 7000, que vaut le CVM ?',
+    ['3y + 60 + 7000/y (CM)','3y + 60','6y + 60 (Cm)','7000/y (CFM)'],
+    1,
+    'Pattern: CVM &rarr; CV = 3y<sup>2</sup>+60y, donc CVM = CV/y = 3y+60. Le CF=7000 n\'est pas dans le CVM.',
+    'CVM = 3y + 60'),
+
+  // Q9. CM = CT/q
+  Q('Co&ucirc;ts','Moyen','CM',
+    'Si CT(q) = 3q<sup>2</sup> + 60q + 7000, que vaut le co&ucirc;t moyen CM ?',
+    ['3q + 60 + 7000/q','3q + 60 (CVM, oubli CF/q)','6q + 60 (Cm)','7000/q (CFM)'],
+    0,
+    'Pattern: CM &rarr; CM = CT/q = (3q<sup>2</sup>+60q+7000)/q = 3q+60+7000/q.',
+    'CM = 3q+60+7000/q'),
+
+  // Q10. Offre: p = Cm
+  Q('Offre','Moyen','Offre',
+    'Si CT(q) = q<sup>2</sup> + 6q + 100, la fonction d\'offre en CPP est :',
+    ['q = p/2 + 6 (signe: +6 au lieu de -3)','q = 0,5p &minus; 3','q = p &minus; 6 (d&eacute;riv&eacute;e fausse)','q = 2p + 6 (invers&eacute;)'],
+    1,
+    'Pattern: Offre &rarr; p = Cm = 2q+6 &rarr; 2q = p&minus;6 &rarr; q = 0,5p&minus;3.',
+    'q = 0,5p &minus; 3'),
+
+  // === PART 3: PROFIT / MULTI-STEP (Q11-Q13) ===
+  // Q11. Dirty multi-step: CT -> Cm -> q* -> pi (type TD reel)
+  Q('Offre','Difficile','Profit multi-step',
+    'Soit CT = 3y<sup>2</sup> + 60y + 7000 et p = 390. Trouvez d\'abord q* (quantit&eacute; optimale), puis le profit &pi;.',
+    ['&pi; = 2075','&pi; = 875 (erreur: 390+60 au lieu de 390&minus;60 &rarr; y=75)','&pi; = 9075 (oublie CF=7000 dans CT)','&pi; = 21450 (RT seulement, oublie CT)'],
+    0,
+    'Pattern: Profit multi-step &rarr; &Eacute;tape 1: Cm = dCT/dy = 6y+60. &Eacute;tape 2: p=Cm &rarr; 390=6y+60 &rarr; y=55. &Eacute;tape 3: CT=3&times;3025+3300+7000=19375. &Eacute;tape 4: &pi;=RT&minus;CT=21450&minus;19375=2075.',
+    'D&eacute;river &rarr; p=Cm &rarr; q*=55 &rarr; &pi;=21450&minus;19375=2075'),
+
+  // Q12. Chained market: QO=QD -> p* -> Q* -> q -> N (type TD3)
+  Q('March&eacute;','Difficile','March&eacute; multi-step',
+    'Q<sub>O</sub> = 5p &minus; 50, Q<sub>D</sub> = 2050 &minus; 20p. Chaque firme offre q = (p &minus; 10) / 2. Le nombre d\'entreprises N est :',
+    ['N = 5 (utilise 2q=74 au lieu de q=37: 370/74=5)','N = 10','N = 37 (confondu avec q*)','N = 370 (confondu avec Q*)'],
+    1,
+    'Pattern: March&eacute; multi-step &rarr; &Eacute;tape 1: 5p&minus;50=2050&minus;20p &rarr; 25p=2100 &rarr; p=84. &Eacute;tape 2: Q*=5&times;84&minus;50=370. &Eacute;tape 3: q=(84&minus;10)/2=37. &Eacute;tape 4: N=Q*/q*=370/37=10.',
+    'QO=QD &rarr; p=84 ; Q=370 ; q=(p&minus;10)/2=37 ; N=370/37=10'),
+
+  // Q13. Relation Cm / CM
+  Q('Co&ucirc;ts','Moyen','Cm vs CM',
+    'Quand le co&ucirc;t marginal Cm est inf&eacute;rieur au co&ucirc;t moyen CM, que se passe-t-il ?',
+    ['Le CM augmente','Le CM diminue','Le CM est constant','Le profit est maximal'],
+    1,
+    'Pattern: Cm &lt; CM &rarr; Le co&ucirc;t marginal tire le co&ucirc;t moyen vers le bas. Relation fondamentale: marginal &lt; moyen &rarr; moyen baisse. Inversement, Cm &gt; CM &rarr; CM augmente.',
+    'Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;'),
+
+  // === PART 4: SEUILS + CONCEPTS (Q14-Q16) ===
+  // Q14. Seuil de fermeture = min CVM
+  Q('March&eacute;','Difficile','Fermeture',
+    'Si CT = y<sup>2</sup> + 6y + 100, quel est le seuil de fermeture (prix minimum pour produire &agrave; court terme) ?',
+    ['6 (min CVM = seuil fermeture)','26 (min CM = seuil rentabilit&eacute;)','10 (quantit&eacute; au min CM)','0 (toujours produire)'],
+    0,
+    'Pattern: Fermeture &rarr; CVM = y+6 ; min CVM &agrave; y=0 &rarr; CVM=6. Si p &lt; 6, l\'entreprise ferme &agrave; court terme. Ne pas confondre avec seuil de rentabilit&eacute; (min CM = 26).',
+    'Fermeture = min CVM = 6'),
+
+  // Q15. Seuil de rentabilite = min CM
+  Q('March&eacute;','Difficile','Rentabilit&eacute;',
+    'Si CT = y<sup>2</sup> + 6y + 100, quel est le seuil de rentabilit&eacute; (prix o&ugrave; profit = 0) ?',
+    ['6 (min CVM = seuil fermeture)','26 (min CM = seuil rentabilit&eacute;)','10 (quantit&eacute; au min CM)','100 (CF)'],
+    1,
+    'Pattern: Rentabilit&eacute; &rarr; CM = y+6+100/y ; min CM &agrave; y=10 &rarr; CM=26. Si p &ge; 26, profit &ge; 0.',
+    'Rentabilit&eacute; = min CM = 26'),
+
+  // Q16. Concept: seuil fermeture definition
+  Q('March&eacute;','Facile','Concept fermeture',
+    'Au seuil de fermeture &agrave; court terme, le prix est &eacute;gal :',
+    ['Au minimum du CM (seuil de rentabilit&eacute;)','Au minimum du CVM','Au CF moyen','Au co&ucirc;t marginal maximum'],
+    1,
+    'Pattern: Concept fermeture &rarr; Seuil fermeture = min CVM. Si p &lt; min CVM, l\'entreprise ne couvre m&ecirc;me pas ses CV &rarr; q=0 est optimal.',
+    'Fermeture = min CVM (pas min CM)'),
+];
+
+// ===== FLASHCARDS =====
+var FLASH=[
+  ['PM<sub>L</sub> = ?','Q / L (production moyenne)'],
+  ['Pm<sub>L</sub> = ?','&Delta;Q / &Delta;L (production marginale)'],
+  ['TMST = ?','Pm<sub>L</sub> / Pm<sub>K</sub>'],
+  ['Rendements Cobb-Douglas','&alpha;+&beta; = 1 &rarr; constants'],
+  ['Optimum producteur','TMST = P<sub>L</sub>/P<sub>K</sub>'],
+  ['CF = ?','Terme constant dans CT(q)'],
+  ['Cm = ?','dCT/dq (d&eacute;riv&eacute;e)'],
+  ['CVM = ?','CV / q (CF exclu)'],
+  ['CM = ?','CT / q (tout divis&eacute;)'],
+  ['Offre CPP','p = Cm &rarr; q(p)'],
+  ['Profit','&pi; = p&middot;q &minus; CT(q)'],
+  ['&Eacute;quilibre march&eacute;','Q<sub>O</sub> = Q<sub>D</sub>'],
+  ['Nombre entreprises','N = Q* / q*'],
+  ['Seuil fermeture','min CVM (p en dessous = produire 0)'],
+  ['Seuil rentabilit&eacute;','min CM (p au dessus = profit &gt; 0)'],
+  ['Relation Cm / CM','Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;'],
+  ['D&eacute;cision court terme','p &lt; min CVM &rarr; fermer. min CVM &lt; p &lt; min CM &rarr; perte'],
+  ['Profit multi-step','Deriver &rarr; p=Cm &rarr; q* &rarr; RT&minus;CT'],
+  ['March&eacute; multi-step','QO=QD &rarr; p &rarr; Q &rarr; p=Cm &rarr; q &rarr; N=Q/q'],
+];
+
+// ===== ENGINE =====
+function showScreen(id){
+  ['dashboard','qcm','results','patterns','flashcards'].forEach(function(s){$(s).classList.remove('show')});
+  $(id).classList.add('show');
+  document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active')});
+  var tab=$('tab'+id.charAt(0).toUpperCase()+id.slice(1));
+  if(tab) tab.classList.add('active');
+  if(id==='flashcards'&&!flash) newFlashcard();
+  updateStats();
+}
+function updateStats(){
+  $('scoreBox').textContent=score;
+  $('countBox').textContent=quiz.length?Math.min(idx+1,quiz.length)+'/'+quiz.length:'0/0';
+  $('accuracyBox').textContent=(answered?Math.round(correct/answered*100):0)+'%';
+  $('timerBox').textContent=timeLeft===null?'--':timeLeft+'s';
+  $('bestBox').textContent=(state.best||0)+'%';
+  $('progressBar').style.width=quiz.length?Math.round(idx/quiz.length*100)+'%':'0%';
+}
+function startPractice(){
+  negative=false;
+  startQuiz(shuffle([...QUESTIONS]).slice(0,16),'16 QCM TD',false,null);
+}
+function startExam(){
+  startQuiz(shuffle([...QUESTIONS]).slice(0,8),'Examen TD',false,null);
+}
+function startMistakes(){
+  var qs=(state.mistakes||[]).slice(-30);
+  startQuiz(qs.length?shuffle(qs):shuffle([...QUESTIONS]).slice(0,8),qs.length?'Erreurs':'Pas d\'erreurs',false,null);
+}
+
+function startQuiz(qs,label,neg,seconds){
+  clearTimer();
+  quiz=qs;idx=0;score=0;answered=0;correct=0;skipped=0;streak=0;locked=false;mode=label;negative=!!neg;
+  timeLeft=seconds;
+  showScreen('qcm');
+  if(seconds){timer=setInterval(function(){timeLeft--;updateStats();if(timeLeft<=0)finishQuiz()},1000)}
+  renderQ();
+}
+
+function renderQ(){
+  locked=false;fiftyUsed=false;
+  var q=quiz[idx];
+  if(!q){finishQuiz();return;}
+  $('qTag').textContent=q.tag||'TD';
+  $('qDiff').textContent=q.diff;
+  $('qMode').textContent=mode;
+  $('qText').innerHTML=q.q;
+  $('optionsBox').innerHTML='';
+  $('feedbackBox').className='feedback';$('feedbackBox').innerHTML='';
+  $('nextActions').classList.add('hidden');
+  $('quizActions').classList.remove('hidden');
+  q.o.forEach(function(op,i){
+    var d=document.createElement('div');
+    d.className='option';
+    d.innerHTML='<b>'+String.fromCharCode(65+i)+')</b> '+op;
+    d.onclick=function(){answerSingle(i)};
+    $('optionsBox').appendChild(d);
+  });
+  updateStats();
+}
+
+function answerSingle(i){
+  if(locked) return;
+  grade(i===quiz[idx].a,i);
+}
+
+function grade(ok,userAns){
+  locked=true;
+  var q=quiz[idx];
+  var opts=[...document.querySelectorAll('.option')];
+  answered++;
+  opts[q.a]?.classList.add('correct');
+  if(!ok) opts[userAns]?.classList.add('wrong');
+  if(ok){correct++;streak++;score+=2;state.xp+=3+Math.min(streak,5)}
+  else{streak=0;if(negative)score--;addMistake(q)}
+  saveState();
+  $('quizActions').classList.add('hidden');
+  $('feedbackBox').className='feedback show';
+  $('feedbackBox').innerHTML=(ok?'<b style="color:var(--green)">Correct !</b>':'<b style="color:var(--red)">Faux</b>')+'<div style="margin-top:8px">'+q.exp+'</div><div style="margin-top:6px;color:var(--orange)"><b>Shortcut:</b> '+q.short+'</div>';
+  $('nextActions').classList.remove('hidden');
+  updateStats();
+}
+
+function addMistake(q){
+  state.mistakes=state.mistakes||[];
+  state.mistakes.push(JSON.parse(JSON.stringify(q)));
+  if(state.mistakes.length>80) state.mistakes=state.mistakes.slice(-80);
+}
+
+function skipQuestion(){
+  if(locked)return;
+  locked=true;skipped++;
+  var q=quiz[idx];
+  var opts=[...document.querySelectorAll('.option')];
+  opts[q.a]?.classList.add('correct');
+  $('quizActions').classList.add('hidden');
+  $('feedbackBox').className='feedback show';
+  $('feedbackBox').innerHTML='<b style="color:var(--orange)">Pass&eacute;e</b><br>Bonne r&eacute;ponse: '+q.o[q.a];
+  $('nextActions').classList.remove('hidden');
+  updateStats();
+}
+
+function nextQuestion(){
+  idx++;
+  if(idx>=quiz.length)finishQuiz();else renderQ();
+}
+
+function finishQuiz(){
+  clearTimer();
+  var acc=answered?Math.round(correct/answered*100):0;
+  state.best=Math.max(state.best||0,acc);
+  saveState();
+  showScreen('results');
+  var msg=acc>=85?'Pr&ecirc;t pour l\'examen TD !':acc>=70?'Bien. Revois les erreurs.':acc>=50?'Continue &agrave; r&eacute;viser.':'Commence par les patterns TD.';
+  $('resultBox').innerHTML='<div class="result-row">'+
+    '<div class="result-box"><span>Score</span><b>'+score+'</b></div>'+
+    '<div class="result-box"><span>Pr&eacute;cision</span><b>'+acc+'%</b></div>'+
+    '<div class="result-box"><span>Correct</span><b>'+correct+'/'+answered+'</b></div>'+
+    '<div class="result-box"><span>Pass&eacute;es</span><b>'+skipped+'</b></div>'+
+    '<div class="result-box"><span>Erreurs</span><b>'+(state.mistakes||[]).length+'</b></div></div>'+
+    '<div class="box"><b>Examen 3 Juin:</b> '+msg+'</div>';
+  updateStats();
+}
+
+function clearTimer(){if(timer){clearInterval(timer);timer=null}timeLeft=null}
+
+function fiftyFifty(){
+  if(locked||fiftyUsed)return;
+  var q=quiz[idx];
+  var opts=[...document.querySelectorAll('.option')];
+  var wrong=q.o.map(function(_,i){return i}).filter(function(i){return i!==q.a});
+  shuffle(wrong).slice(0,2).forEach(function(i){opts[i]?.classList.add('eliminated');opts[i].onclick=null});
+  fiftyUsed=true;
+}
+
+function newFlashcard(){flash=pick(FLASH);flipped=false;$('flashBig').innerHTML=flash[0];$('flashSmall').textContent='Clique pour r&eacute;v&eacute;ler.'}
+function flipFlashcard(){if(!flash)newFlashcard();flipped=!flipped;$('flashBig').innerHTML=flipped?flash[1]:flash[0];$('flashSmall').textContent=flipped?'Clique pour cacher.':'Clique pour r&eacute;v&eacute;ler.';if(flipped){state.xp++;saveState();updateStats()}}
+
+function toggleTheme(){document.body.classList.toggle('light');state.theme=document.body.classList.contains('light')?'light':'dark';saveState()}
+function resetProgress(){if(!confirm('Tout reinitialiser?'))return;localStorage.removeItem(KEY);location.reload()}
+function exportProgress(){$('progressText').value=JSON.stringify(state,null,2)}
+function importProgress(){try{var obj=JSON.parse($('progressText').value);localStorage.setItem(KEY,JSON.stringify(Object.assign(state,obj)));location.reload()}catch(e){alert('JSON invalide')}}
+
+document.addEventListener('keydown',function(e){
+  if(!$('qcm').classList.contains('show'))return;
+  if(e.key>='1'&&e.key<='4')answerSingle(Number(e.key)-1);
+  if(e.key==='Enter'&&!$('nextActions').classList.contains('hidden'))nextQuestion();
+});
+
+document.addEventListener('DOMContentLoaded',function(){
+  if(state.theme==='light')document.body.classList.add('light');
+  updateStats();
+});
+</script>
+</body>
+</html>
