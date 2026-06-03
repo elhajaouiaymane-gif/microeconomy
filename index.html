@@ -112,8 +112,8 @@
       <div class="hero-top">
         <div>
           <h1>Micro &mdash; Examen 3 Juin</h1>
-          <p class="subtitle"><b>TD Replica 24Q.</b> 24 questions = 3 sections TD. D&eacute;finitions &rarr; Chap 1+2 &rarr; Chap 3.</p>
-          <div class="countdown-banner">Examen 3 Juin &mdash; 24 QCM : tous les patterns TD</div>
+          <p class="subtitle"><b>TD Replica 24Q.</b> D&eacute;finitions + isoquante/isoco&ucirc;t &rarr; production/co&ucirc;ts &rarr; march&eacute; CPP.</p>
+          <div class="countdown-banner">Examen 3 Juin &mdash; 24 QCM : calculs + raisonnement &eacute;co</div>
         </div>
         <div>
           <button class="ghost" onclick="toggleTheme()">Theme</button>
@@ -144,15 +144,15 @@
         <!-- DASHBOARD -->
         <section id="dashboard" class="screen show">
           <h2>Strat&eacute;gie TD Replica 24Q</h2>
-          <div class="strategy-card"><b>Si 2h avant l&apos;examen :</b><br>1. Parcours les <b>24 patterns TD</b> (onglet &rarr; 12 min)<br>2. Fais les <b>24 QCM TD</b> une fois (25 min)<br>3. Relis les <b>16 traps TD</b> (6 min)<br>4. Examen blanc 12 questions chrono (15 min)<br>5. Relis les <b>16 formules</b> (3 min)</div>
-          <div class="strategy-card"><b>Si 1 jour avant :</b><br>1. Fais les <b>24 QCM</b> en mode entra&icirc;nement<br>2. Revois les erreurs<br>3. Apprends les <b>24 patterns TD</b> par c&oelig;ur<br>4. Fais <b>2 examens blancs</b> chrono</div>
-          <div class="strategy-card"><b>Pendant l&apos;examen :</b><br>1. Section 1 = d&eacute;finitions (r&eacute;ponds vite)<br>2. Section 2 = production &rarr; co&ucirc;ts &rarr; profit (encha&icirc;ne les patterns)<br>3. Section 3 = march&eacute; &rarr; QO=QD &rarr; q* &rarr; N (suis la cha&icirc;ne)<br>4. V&eacute;rifie les pi&egrave;ges : CM vs Cm, d&eacute;riv&eacute;e, division par q, signes</div>
+          <div class="strategy-card"><b>Si 2h avant l&apos;examen :</b><br>1. Parcours les <b>24 patterns</b> (12 min)<br>2. Fais les <b>24 QCM</b> une fois (25 min)<br>3. Relis les <b>18 traps</b> (6 min)<br>4. Examen blanc 12 questions chrono (15 min)<br>5. Relis les <b>18 formules</b> (3 min)</div>
+          <div class="strategy-card"><b>Si 1 jour avant :</b><br>1. Fais les 24 QCM en mode entra&icirc;nement<br>2. Revois les erreurs<br>3. Apprends les 24 patterns par c&oelig;ur<br>4. Fais 2 examens blancs chrono</div>
+          <div class="strategy-card"><b>Pendant l&apos;examen :</b><br>1. Section 1 = d&eacute;finitions + concepts (isoquante, isoco&ucirc;t, optimum)<br>2. Section 2 = production &rarr; co&ucirc;ts &rarr; profit (encha&icirc;ne les patterns)<br>3. Section 3 = march&eacute; &rarr; QO=QD &rarr; N (suis la cha&icirc;ne)<br>4. V&eacute;rifie les pi&egrave;ges : CM vs Cm, d&eacute;riv&eacute;e, signes, interpr&eacute;tation isoquante</div>
           <div class="box">
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px">
-              <div class="mode-card" onclick="showScreen('qcm')"><b>24 QCM TD</b><span class="mini">3 sections TD</span></div>
+              <div class="mode-card" onclick="showScreen('qcm')"><b>24 QCM TD</b><span class="mini">3 sections compl&egrave;tes</span></div>
               <div class="mode-card" onclick="startExam()"><b>Examen</b><span class="mini">12 questions chrono</span></div>
               <div class="mode-card" onclick="startMistakes()"><b>Erreurs</b><span class="mini">Revois tes fautes</span></div>
-              <div class="mode-card" onclick="showScreen('patterns')"><b>Patterns</b><span class="mini">Formules + astuces</span></div>
+              <div class="mode-card" onclick="showScreen('patterns')"><b>Patterns</b><span class="mini">Formules + concepts</span></div>
               <div class="mode-card" onclick="showScreen('flashcards')"><b>Flash</b><span class="mini">Cartes m&eacute;moire</span></div>
             </div>
           </div>
@@ -160,8 +160,8 @@
 
         <!-- QCM -->
         <section id="qcm" class="screen">
-          <h2>24 QCM TD &mdash; 3 sections, exactement comme les TD</h2>
-          <p class="mini">Section 1 : D&eacute;finitions &bull; Section 2 : Chap 1+2 &bull; Section 3 : Chap 3</p>
+          <h2>24 QCM TD &mdash; 3 sections, comme &agrave; l&apos;examen</h2>
+          <p class="mini">Section 1 : Concepts + d&eacute;finitions &bull; Section 2 : TD Chap 1+2 &bull; Section 3 : TD Chap 3</p>
           <div id="qSection" class="section-header"></div>
           <div id="quizZone">
             <div class="q-meta"><span id="qTag" class="tag purple">Pattern</span><span id="qDiff" class="tag orange">Niveau</span><span id="qMode" class="tag green">Mode</span></div>
@@ -185,40 +185,41 @@
 
         <!-- PATTERNS -->
         <section id="patterns" class="screen">
-          <h2>Les 24 patterns TD &mdash; 1 par question</h2>
-          <p class="mini">Apprends le pattern &rarr; reconnais-le &rarr; r&eacute;ponds en 30s.</p>
-          <div class="section-header">SECTION 1 &mdash; D&eacute;finitions (Q1-Q8)</div>
-          <div class="ref-card"><b>1. PM (productivit&eacute; moyenne)</b><br>&rarr; PM<sub>L</sub> = Q / L<br>&rarr; Trap: confusion avec Pm (&Delta;Q/&Delta;L)<br><span class="ans">&rArr; PM = total/total, Pm = variation</span></div>
-          <div class="ref-card"><b>2. Cm (co&ucirc;t marginal)</b><br>&rarr; Cm = dCT/dq (d&eacute;riv&eacute;e)<br>&rarr; Trap: confondre avec CM = CT/q<br><span class="ans">&rArr; Cm = d&eacute;riv&eacute;e, CM = division</span></div>
-          <div class="ref-card"><b>3. TMST (taux marginal de substitution)</b><br>&rarr; TMST = Pm<sub>L</sub> / Pm<sub>K</sub><br>&rarr; Trap: inverser les productivit&eacute;s<br><span class="ans">&rArr; Travail/capital : PmL/PmK</span></div>
-          <div class="ref-card"><b>4. Offre CPP</b><br>&rarr; p = Cm (r&egrave;gle d&apos;or de la CPP)<br>&rarr; Trap: utiliser p = CM<br><span class="ans">&rArr; En CPP, produire tant que p=Cm</span></div>
-          <div class="ref-card"><b>5. Profit</b><br>&rarr; &pi; = p&middot;q &minus; CT(q)<br>&rarr; Trap: oublier CT (juste RT)<br><span class="ans">&rArr; Profit = RT &minus; CT</span></div>
-          <div class="ref-card"><b>6. &Eacute;quilibre march&eacute;</b><br>&rarr; Q<sub>O</sub> = Q<sub>D</sub><br>&rarr; Trap: croire QO &gt; QD = &eacute;quilibre<br><span class="ans">&rArr; Offre = Demande</span></div>
-          <div class="ref-card"><b>7. Seuil de fermeture</b><br>&rarr; p = min CVM (en dessous &rarr; q=0)<br>&rarr; Trap: confondre avec seuil rentabilit&eacute;<br><span class="ans">&rArr; Fermeture = min CVM</span></div>
-          <div class="ref-card"><b>8. D&eacute;cision production CT</b><br>&rarr; Comparer p &agrave; min CVM et min CM<br>&rarr; Trap: fermer d&egrave;s que p &lt; min CM<br><span class="ans">&rArr; On produit tant que p &gt; min CVM</span></div>
+          <h2>Les 24 patterns TD &mdash; calculs ET concepts</h2>
+          <p class="mini">Chaque pattern = un type de question qui tombe &agrave; l&apos;examen.</p>
+          <div class="section-header">SECTION 1 &mdash; D&eacute;finitions + Concepts (Q1-Q8)</div>
+          <div class="ref-card"><b>1. PM (productivit&eacute; moyenne)</b><br>&rarr; PM<sub>L</sub> = Q / L (moyenne)<br>&rarr; Trap: confondre avec Pm = &Delta;Q/&Delta;L (marginale)<br><span class="ans">&rArr; PM = total/total, Pm = variation</span></div>
+          <div class="ref-card"><b>2. Cm (co&ucirc;t marginal)</b><br>&rarr; Cm = dCT/dq (d&eacute;riv&eacute;e), pas CT/q<br>&rarr; Trap: CM = CT/q est la moyenne, Cm est le co&ucirc;t de la derni&egrave;re unit&eacute;<br><span class="ans">&rArr; Cm = d&eacute;riv&eacute;e, CM = division</span></div>
+          <div class="ref-card"><b>3. TMST &mdash; interpr&eacute;tation</b><br>&rarr; TMST = Pm<sub>L</sub>/Pm<sub>K</sub> = pente de l&apos;isoquante<br>&rarr; Mesure combien de K on remplace par 1L &agrave; Q constant<br><span class="ans">&rArr; TMST = pente isoquante = substitution &agrave; Q constant</span></div>
+          <div class="ref-card"><b>4. Isoquante</b><br>&rarr; Courbe d&eacute;croissante : si L&uarr; alors K&darr; pour Q fixe<br>&rarr; convexe (TMST d&eacute;croissant). JAMAIS croissante<br><span class="ans">&rArr; Isoquante = m&ecirc;me Q, pente n&eacute;gative, convexe</span></div>
+          <div class="ref-card"><b>5. Isoco&ucirc;t</b><br>&rarr; CT = P<sub>L</sub>&middot;L + P<sub>K</sub>&middot;K, pente = &minus;P<sub>L</sub>/P<sub>K</sub><br>&rarr; Si P<sub>L</sub>&uarr; &rarr; pente plus raide. Si P<sub>K</sub>&darr; &rarr; pente plus plate<br><span class="ans">&rArr; Isoco&ucirc;t = m&ecirc;me CT, pente = &minus;PL/PK</span></div>
+          <div class="ref-card"><b>6. Optimum producteur</b><br>&rarr; TMST = P<sub>L</sub>/P<sub>K</sub> (tangence isoquante/isoco&ucirc;t)<br>&rarr; Productivit&eacute; marginale par euro &eacute;galis&eacute;e entre inputs<br><span class="ans">&rArr; Optimum = isoquante tangente &agrave; isoco&ucirc;t</span></div>
+          <div class="ref-card"><b>7. Offre CPP</b><br>&rarr; p = Cm &rarr; maximise le profit<br>&rarr; Trap: utiliser p = CM (faux en CPP)<br><span class="ans">&rArr; En CPP : produire tant que p = Cm</span></div>
+          <div class="ref-card"><b>8. D&eacute;cision court terme</b><br>&rarr; p &lt; min CVM &rarr; fermer. min CVM &lt; p &lt; min CM &rarr; perte<br>&rarr; Ne pas fermer d&egrave;s que p &lt; min CM !<br><span class="ans">&rArr; On produit tant que p &gt; min CVM</span></div>
 
           <div class="section-divider"></div>
           <div class="section-header">SECTION 2 &mdash; Production + Co&ucirc;ts / Offre (Q9-Q16)</div>
-          <div class="ref-card"><b>9. Calcul PM</b><br>&rarr; Q/L avec chiffres donn&eacute;s<br>&rarr; Ex: Q=100, L=5 &rarr; PM=20<br><span class="ans">&rArr; Q divis&eacute; par L</span></div>
-          <div class="ref-card"><b>10. Calcul Pm</b><br>&rarr; &Delta;Q/&Delta;L = (Q2&minus;Q1)/(L2&minus;L1)<br>&rarr; Ex: Q:80&rarr;96, L:4&rarr;5 &rarr; Pm=16<br><span class="ans">&rArr; Variation de Q sur variation de L</span></div>
-          <div class="ref-card"><b>11. TMST Cobb-Douglas</b><br>&rarr; Q = A&middot;L<sup>&alpha;</sup>K<sup>&beta;</sup> &rarr; TMST = (&alpha;/&beta;)&middot;(K/L)<br>&rarr; Ex: &alpha;=0,7 ; &beta;=0,3 &rarr; TMST = 14K/6L<br><span class="ans">&rArr; &alpha;K / &beta;L</span></div>
+          <div class="ref-card"><b>9. PM calcul</b><br>&rarr; Q/L avec valeurs num&eacute;riques<br>&rarr; Ex: Q=100, L=5 &rarr; PM = 20<br><span class="ans">&rArr; Q divis&eacute; par L</span></div>
+          <div class="ref-card"><b>10. Pm calcul</b><br>&rarr; &Delta;Q/&Delta;L = (Q2&minus;Q1)/(L2&minus;L1)<br>&rarr; Ex: Q:80&rarr;96, L:4&rarr;5 &rarr; Pm = 16<br><span class="ans">&rArr; Variation de Q / variation de L</span></div>
+          <div class="ref-card"><b>11. TMST Cobb-Douglas</b><br>&rarr; Q = A&middot;L<sup>&alpha;</sup>K<sup>&beta;</sup> &rarr; TMST = (&alpha;/&beta;)&middot;(K/L)<br>&rarr; Ex: &alpha;=0,7 ; &beta;=0,3 &rarr; TMST = 14K/6L<br><span class="ans">&rArr; (&alpha;K) / (&beta;L)</span></div>
           <div class="ref-card"><b>12. Rendements d&eacute;chelle</b><br>&rarr; &alpha;+&beta; = 1 &rarr; constants ; &gt;1 &rarr; croissants ; &lt;1 &rarr; d&eacute;croissants<br>&rarr; Ex: 0,6+0,4=1 &rarr; constants<br><span class="ans">&rArr; Somme des exposants</span></div>
-          <div class="ref-card"><b>13. Optimum producteur</b><br>&rarr; TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; isole K=f(L)<br>&rarr; Ex: 3K/2L=6/2=3 &rarr; K=2L<br><span class="ans">&rArr; TMST = rapport prix &rarr; K = f(L)</span></div>
-          <div class="ref-card"><b>14. Identifier CF et CVM</b><br>&rarr; CF = constante de CT ; CVM = (CT&minus;CF)/q<br>&rarr; Ex: CT=3q<sup>2</sup>+60q+7000 &rarr; CF=7000, CVM=3q+60<br><span class="ans">&rArr; CF = constante, CVM = partie variable / q</span></div>
-          <div class="ref-card"><b>15. q* par p=Cm</b><br>&rarr; Cm = dCT/dq &rarr; p=Cm &rarr; q*<br>&rarr; Ex: CT=q<sup>2</sup>+6q+100, p=80 &rarr; Cm=2q+6, 80=2q+6, q=37<br><span class="ans">&rArr; D&eacute;river &rarr; p=Cm &rarr; isoler q</span></div>
-          <div class="ref-card"><b>16. Profit multi-step</b><br>&rarr; CT &rarr; Cm &rarr; p=Cm &rarr; q* &rarr; &pi;<br>&rarr; Ex: CT=3y<sup>2</sup>+60y+7000, p=390 &rarr; y=55, &pi;=2075<br><span class="ans">&rArr; 4 &eacute;tapes : Cm &rarr; q* &rarr; CT(q*) &rarr; RT&minus;CT</span></div>
+          <div class="ref-card"><b>13. Optimum producteur</b><br>&rarr; TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; K = f(L)<br>&rarr; Ex: TMST=3K/2L, P<sub>L</sub>=6, P<sub>K</sub>=2 &rarr; K=2L<br><span class="ans">&rArr; &Eacute;galer TMST au rapport des prix</span></div>
+          <div class="ref-card"><b>14. CF, CVM, offre</b><br>&rarr; CF = constante ; CVM = CV/q ; p=Cm &rarr; q(p)<br>&rarr; Ne pas mettre CF dans CVM<br><span class="ans">&rArr; CF = constante, CVM = partie variable / q</span></div>
+          <div class="ref-card"><b>15. q* par p=Cm</b><br>&rarr; D&eacute;river CT &rarr; Cm ; poser p=Cm &rarr; r&eacute;soudre q<br>&rarr; Ex: CT=q<sup>2</sup>+6q+100, p=80 &rarr; q=37<br><span class="ans">&rArr; D&eacute;river &rarr; p=Cm &rarr; isoler q</span></div>
+          <div class="ref-card"><b>16. Profit multi-step</b><br>&rarr; CT &rarr; Cm &rarr; q* &rarr; CT(q*) &rarr; &pi;<br>&rarr; Ex: CT=3y<sup>2</sup>+60y+7000, p=390 &rarr; y=55, &pi;=2075<br><span class="ans">&rArr; 4 &eacute;tapes : Cm &rarr; q* &rarr; CT(q*) &rarr; RT&minus;CT</span></div>
 
           <div class="section-divider"></div>
           <div class="section-header">SECTION 3 &mdash; March&eacute; CPP (Q17-Q24)</div>
-          <div class="ref-card"><b>17. &Eacute;quilibre QO=QD &rarr; p*</b><br>&rarr; R&eacute;soudre QO = QD pour p<br>&rarr; Ex: 5p&minus;50 = 2050&minus;20p &rarr; 25p=2100 &rarr; p=84<br><span class="ans">&rArr; Les p d&apos;un c&ocirc;t&eacute;, constantes de l&apos;autre</span></div>
-          <div class="ref-card"><b>18. Q* &agrave; l&apos;&eacute;quilibre</b><br>&rarr; Remplacer p* dans QO ou QD<br>&rarr; Ex: p=84 dans QO=5p&minus;50 &rarr; Q*=370<br><span class="ans">&rArr; Q* = QO(p*) = QD(p*)</span></div>
-          <div class="ref-card"><b>19. q* individuelle</b><br>&rarr; p=Cm &rarr; q(p) &rarr; q*=q(p*)<br>&rarr; Ex: q=(p&minus;10)/2, p=84 &rarr; q=37<br><span class="ans">&rArr; Appliquer p* dans la fonction d&apos;offre</span></div>
+          <div class="ref-card"><b>17. &Eacute;quilibre QO=QD &rarr; p*</b><br>&rarr; R&eacute;soudre QO = QD + signes corrects<br>&rarr; Ex: 5p&minus;50 = 2050&minus;20p &rarr; p=84<br><span class="ans">&rArr; Les p d&apos;un c&ocirc;t&eacute;, constantes de l&apos;autre</span></div>
+          <div class="ref-card"><b>18. Q* &agrave; l&apos;&eacute;quilibre</b><br>&rarr; Remplacer p* dans QO ou QD<br>&rarr; Q* = QO(p*) = QD(p*)<br><span class="ans">&rArr; Q* = QO(p*)</span></div>
+          <div class="ref-card"><b>19. q* individuelle</b><br>&rarr; q(p) donn&eacute;e, remplacer p*<br>&rarr; Ex: q=(p&minus;10)/2, p=84 &rarr; q=37<br><span class="ans">&rArr; Attention aux parenth&egrave;ses</span></div>
           <div class="ref-card"><b>20. Nombre d&apos;entreprises</b><br>&rarr; N = Q* / q*<br>&rarr; Ex: Q*=370, q*=37 &rarr; N=10<br><span class="ans">&rArr; N = total / individuel</span></div>
-          <div class="ref-card"><b>21. Seuil fermeture (calcul)</b><br>&rarr; min CVM : d&eacute;river CVM, poser =0<br>&rarr; Ex: CVM=y+6 &rarr; min=6 &agrave; y=0<br><span class="ans">&rArr; Fermeture = min CVM = 6</span></div>
-          <div class="ref-card"><b>22. Seuil rentabilit&eacute; (calcul)</b><br>&rarr; min CM : d&eacute;river CM, poser Cm=CM<br>&rarr; Ex: CM=y+6+100/y &rarr; min=26 &agrave; y=10<br><span class="ans">&rArr; Rentabilit&eacute; = min CM = 26</span></div>
-          <div class="ref-card"><b>23. March&eacute; multi-step complet</b><br>&rarr; QO=QD &rarr; p* &rarr; Q* &rarr; q* &rarr; N (5 &eacute;tapes)<br>&rarr; Ex: QO=5p&minus;20, QD=310&minus;6p, Cm=2q+4 &rarr; p=30, Q=130, q=13, N=10<br><span class="ans">&rArr; QO=QD &rarr; p &rarr; Q ; p=Cm &rarr; q ; N = Q/q</span></div>
-          <div class="ref-card"><b>24. Relation Cm / CM</b><br>&rarr; Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;<br>&rarr; Cm = CM au minimum du CM<br><span class="ans">&rArr; Le marginal tire le moyen vers lui</span></div>
-          <div class="box" style="margin-top:10px"><b>Les 16 formules &agrave; savoir par c&oelig;ur :</b><br>1. PM = Q/L &nbsp; 2. Pm = &Delta;Q/&Delta;L &nbsp; 3. TMST = PmL/PmK &nbsp; 4. &alpha;+&beta; = degr&eacute; homog. &nbsp; 5. CT = CF + CV &nbsp; 6. CM = CT/q &nbsp; 7. CVM = CV/q &nbsp; 8. Cm = dCT/dq &nbsp; 9. p = Cm (offre) &nbsp; 10. &pi; = p&middot;q &minus; CT(q) &nbsp; 11. QO = QD &nbsp; 12. N = Q/q &nbsp; 13. Fermeture = min CVM &nbsp; 14. Rentabilit&eacute; = min CM &nbsp; 15. Cm &lt; CM &rarr; CM &darr; &nbsp; 16. D&eacute;cision : p &gt; min CVM &rarr; produire</div>
+          <div class="ref-card"><b>21. Seuil fermeture</b><br>&rarr; min CVM : d&eacute;river CVM, trouver minimum<br>&rarr; Ex: CVM=y+6 &rarr; min=6 &agrave; y=0<br><span class="ans">&rArr; Fermeture = min CVM</span></div>
+          <div class="ref-card"><b>22. Seuil rentabilit&eacute;</b><br>&rarr; min CM : Cm=CM &rarr; r&eacute;soudre q puis CM<br>&rarr; Ex: CM=y+6+100/y &rarr; min=26 &agrave; y=10<br><span class="ans">&rArr; Rentabilit&eacute; = min CM</span></div>
+          <div class="ref-card"><b>23. March&eacute; complet</b><br>&rarr; QO=QD &rarr; p* &rarr; Q* &rarr; q* &rarr; N (5 &eacute;tapes)<br>&rarr; Ex: QO=5p&minus;20, QD=310&minus;6p, Cm=2q+4 &rarr; p=30, Q=130, q=13, N=10<br><span class="ans">&rArr; QO=QD &rarr; p &rarr; Q ; p=Cm &rarr; q ; N=Q/q</span></div>
+          <div class="ref-card"><b>24. Relation Cm/CM + &eacute;quilibre firme</b><br>&rarr; Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;<br>&rarr; Cm = CM au min du CM (profit nul si p=CM)<br><span class="ans">&rArr; Le marginal tire le moyen</span></div>
+
+          <div class="box" style="margin-top:10px"><b>Les 18 formules &agrave; savoir :</b><br>1. PM = Q/L &nbsp; 2. Pm = &Delta;Q/&Delta;L &nbsp; 3. TMST = PmL/PmK &nbsp; 4. &alpha;+&beta; &nbsp; 5. Isoquante : Q constant, pente &minus; &nbsp; 6. Isoco&ucirc;t : CT = P<sub>L</sub>L+P<sub>K</sub>K, pente &minus;P<sub>L</sub>/P<sub>K</sub> &nbsp; 7. Optimum : TMST = P<sub>L</sub>/P<sub>K</sub> &nbsp; 8. CT = CF+CV &nbsp; 9. CM = CT/q &nbsp; 10. CVM = CV/q &nbsp; 11. Cm = dCT/dq &nbsp; 12. p = Cm (offre) &nbsp; 13. &pi; = p&middot;q &minus; CT(q) &nbsp; 14. QO = QD &nbsp; 15. N = Q/q &nbsp; 16. Fermeture = min CVM &nbsp; 17. Rentabilit&eacute; = min CM &nbsp; 18. Cm &lt; CM &rarr; CM &darr;</div>
         </section>
 
         <!-- FLASHCARDS -->
@@ -231,10 +232,14 @@
 
       <aside class="side">
         <section class="card">
-          <h2>16 formules TD</h2>
+          <h2>18 formules TD</h2>
           <div class="formula">PM<sub>L</sub> = Q / L</div>
           <div class="formula">Pm<sub>L</sub> = &Delta;Q / &Delta;L</div>
           <div class="formula">TMST = Pm<sub>L</sub> / Pm<sub>K</sub></div>
+          <div class="formula">Isoquante : Q constant, pente n&eacute;gative</div>
+          <div class="formula">Isoco&ucirc;t : CT = P<sub>L</sub>L + P<sub>K</sub>K</div>
+          <div class="formula">Pente isoco&ucirc;t = &minus;P<sub>L</sub>/P<sub>K</sub></div>
+          <div class="formula">Optimum : TMST = P<sub>L</sub>/P<sub>K</sub></div>
           <div class="formula">CT = CF + CV</div>
           <div class="formula">CM = CT / q</div>
           <div class="formula">CVM = CV / q</div>
@@ -246,27 +251,27 @@
           <div class="formula">Fermeture = min CVM</div>
           <div class="formula">Rentabilit&eacute; = min CM</div>
           <div class="formula">Cm &lt; CM &rarr; CM &darr;</div>
-          <div class="formula">D&eacute;cision : p &gt; min CVM &rarr; produire</div>
-          <div class="formula">Optimum : TMST = P<sub>L</sub>/P<sub>K</sub></div>
         </section>
         <section class="card">
-          <h2>16 Traps TD</h2>
-          <div class="trap"><b>1. PM vs Pm</b><br>PM = Q/L (total), Pm = &Delta;Q/&Delta;L (variation)<br>R&egrave;gle: &laquo;moyenne&raquo; = total/total, &laquo;marginale&raquo; = variation</div>
-          <div class="trap"><b>2. D&eacute;riv&eacute;e CT</b><br>q<sup>2</sup> &rarr; q (faux) ; vrai : q<sup>2</sup> &rarr; 2q<br>R&egrave;gle: puissance descend en multipliant</div>
-          <div class="trap"><b>3. CM vs Cm</b><br>Trap: p = CM (faux). Vrai: p = Cm en CPP<br>R&egrave;gle: CM = CT/q (moyen), Cm = dCT/dq (marginal)</div>
-          <div class="trap"><b>4. Oubli CF dans CM</b><br>CM = 3q+60 (oubli 7000/q). Vrai: diviser chaque terme de CT par q</div>
-          <div class="trap"><b>5. CF dans CVM</b><br>Enlever CF avant de diviser par q. CF ne va pas dans CVM.</div>
-          <div class="trap"><b>6. Signe offre inverse</b><br>p=2q+6 &rarr; q=2p+6 (faux). Vrai: q = 0,5p&minus;3. Isoler q correctement.</div>
-          <div class="trap"><b>7. TMST invers&eacute;</b><br>Trap: TMST = PmK/PmL. Vrai: TMST = PmL/PmK = L/capital</div>
-          <div class="trap"><b>8. Confusion Q* et q*</b><br>N = q*/Q* (faux). Vrai: N = Q*/q*. Q* = march&eacute; total, q* = une firme</div>
-          <div class="trap"><b>9. Seuil fermeture vs rentabilit&eacute;</b><br>Fermeture = min CVM, rentabilit&eacute; = min CM. CVM &lt; CM toujours.</div>
-          <div class="trap"><b>10. Profit oubli CT</b><br>Trap: &pi; = p&middot;q (RT seulement). Vrai: &pi; = RT &minus; CT(q)</div>
-          <div class="trap"><b>11. Signe &eacute;quation march&eacute;</b><br>5p&minus;50 = 2050&minus;20p &rarr; 5p&minus;20p = 2050&minus;50 (faux). Les signes changent !</div>
-          <div class="trap"><b>12. Oubli &eacute;tape profit</b><br>Trap: &pi; = p&middot;q sans calculer CT. Il faut CT(q*) apr&egrave;s avoir trouv&eacute; q* par p=Cm.</div>
-          <div class="trap"><b>13. D&eacute;cision CT</b><br>Trap: si p &lt; min CM &rarr; fermer. Vrai: on ferme que si p &lt; min CVM.</div>
-          <div class="trap"><b>14. Parenth&egrave;ses offre</b><br>q = (p&minus;10)/2 &rarr; ne pas oublier les parenth&egrave;ses: (84&minus;10)/2 = 37, pas 84/2&minus;10 = 32</div>
-          <div class="trap"><b>15. Confondre CT et Cm</b><br>CT n&apos;est pas Cm. D&eacute;river avant d&apos;appliquer p=Cm.</div>
-          <div class="trap"><b>16. TMST &agrave; l&apos;optimum</b><br>&Eacute;galer TMST au rapport des prix, puis r&eacute;soudre K en fonction de L.</div>
+          <h2>18 Traps TD</h2>
+          <div class="trap"><b>1. PM vs Pm</b><br>PM = Q/L (total), Pm = &Delta;Q/&Delta;L (variation). Ne pas les confondre.</div>
+          <div class="trap"><b>2. D&eacute;riv&eacute;e CT</b><br>q<sup>2</sup> &rarr; q (faux) ; vrai : q<sup>2</sup> &rarr; 2q. La puissance descend.</div>
+          <div class="trap"><b>3. CM vs Cm</b><br>Trap: p = CM (faux). Vrai: p = Cm. CM = CT/q, Cm = dCT/dq.</div>
+          <div class="trap"><b>4. Oubli CF dans CM</b><br>CM = 3q+60 (oubli 7000/q). Divis&eacute; chaque terme de CT par q.</div>
+          <div class="trap"><b>5. CF dans CVM</b><br>Enlever CF d&apos;abord. Le CF constant ne va pas dans le CVM.</div>
+          <div class="trap"><b>6. Signe offre inverse</b><br>p=2q+6 &rarr; q=2p+6 (faux). Vrai: q = 0,5p&minus;3. Isoler q !</div>
+          <div class="trap"><b>7. TMST invers&eacute;</b><br>TMST = PmK/PmL (faux). Vrai: TMST = PmL/PmK = travail/capital.</div>
+          <div class="trap"><b>8. Confusion Q* et q*</b><br>N = q*/Q* (faux). Vrai: N = Q*/q*. March&eacute; / firme.</div>
+          <div class="trap"><b>9. Seuil fermeture vs rentabilit&eacute;</b><br>Fermeture = min CVM. Rentabilit&eacute; = min CM. CVM &lt; CM toujours.</div>
+          <div class="trap"><b>10. Profit oubli CT</b><br> &pi; = p&middot;q (RT seulement). Vrai: &pi; = RT &minus; CT(q).</div>
+          <div class="trap"><b>11. Signes &eacute;quation march&eacute;</b><br>5p&minus;50 = 2050&minus;20p &rarr; 5p+20p = 2050+50. Les signes changent !</div>
+          <div class="trap"><b>12. Oubli &eacute;tape multi-step</b><br>Ne pas oublier de calculer CT(q*) apr&egrave;s avoir trouv&eacute; q*.</div>
+          <div class="trap"><b>13. D&eacute;cision CT erron&eacute;e</b><br>Trap: p &lt; min CM &rarr; fermer (faux). On ferme si p &lt; min CVM.</div>
+          <div class="trap"><b>14. Parenth&egrave;ses offre</b><br>q = (p&minus;10)/2 &rarr; (84&minus;10)/2 = 37, PAS 84/2&minus;10 = 32.</div>
+          <div class="trap"><b>15. Isoquante = croissante</b><br>Trap: croire isoquante croissante. Faux: elle est d&eacute;croissante (si L&uarr; K&darr;).</div>
+          <div class="trap"><b>16. Isoquante = m&ecirc;me co&ucirc;t</b><br>Trap: confondre isoquante (production) et isoco&ucirc;t (co&ucirc;t). Deux concepts diff&eacute;rents.</div>
+          <div class="trap"><b>17. Pente isoco&ucirc;t = PL/PK</b><br>Trap: pente isoco&ucirc;t = PL/PK (faux). Vrai: pente = &minus;PL/PK (signe n&eacute;gatif).</div>
+          <div class="trap"><b>18. Confondre CT et Cm</b><br>CT n&apos;est pas la d&eacute;riv&eacute;e. Il faut d&eacute;river CT pour trouver Cm avant p=Cm.</div>
         </section>
         <section class="card">
           <h2>Donn&eacute;es</h2>
@@ -284,7 +289,7 @@
 
 <script>
 'use strict';
-const KEY='micro_td_v2_24q';
+const KEY='micro_td_v3_24q';
 const state=loadState();
 var quiz=[],idx=0,score=0,answered=0,correct=0,skipped=0,streak=0,locked=false,mode='TD Replica 24Q',negative=false,timer=null,timeLeft=null,flash=null,flipped=false,fiftyUsed=false;
 
@@ -294,7 +299,7 @@ function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
 function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t}return r}
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 
-var SECTIONS=['Section 1 &mdash; D&eacute;finitions (Q1-Q8)','Section 2 &mdash; Chap 1+2 (Q9-Q16)','Section 3 &mdash; Chap 3 (Q17-Q24)'];
+var SECTIONS=['Section 1 &mdash; Concepts + D&eacute;finitions (Q1-Q8)','Section 2 &mdash; Chap 1+2 (Q9-Q16)','Section 3 &mdash; Chap 3 (Q17-Q24)'];
 var sectionBoundaries=[8,16,24];
 
 function getSectionLabel(idx){
@@ -302,89 +307,89 @@ function getSectionLabel(idx){
   return SECTIONS[0];
 }
 
-// ===== 24 QUESTIONS — 3 sections TD =====
+// ===== 24 QUESTIONS — 3 sections =====
 var Q=function(pat,diff,sec,tag,q,o,a,exp,short){return {pat:pat,diff:diff,sec:sec,tag:tag,q:q,o:o,a:a,exp:exp,short:short}};
 var QUESTIONS = [
-  // ===== SECTION 1: DEFINITIONS (Q1-Q8) =====
-  // Q1. PM = Q/L
+  // ===== SECTION 1: CONCEPTS + DEFINITIONS (Q1-Q8) =====
+  // Q1. PM = Q/L (concept)
   Q('Production','Facile',1,'PM',
-    'La productivit&eacute; moyenne du travail PM<sub>L</sub> se calcule par :',
-    ['&Delta;Q/&Delta;L (Pm marginale)','Q / L','L / Q (inverse)','dQ/dL (Pm en continu)'],
-    1,
-    'PM = Q/L. C\'est la production totale divis&eacute;e par le nombre de travailleurs. &Agrave; ne pas confondre avec Pm = &Delta;Q/&Delta;L.',
-    'PM = total/total ; Pm = variation'),
+    'La productivit&eacute; moyenne du travail PM<sub>L</sub> mesure :',
+    ['La production totale divis&eacute;e par le nombre de travailleurs','La variation de Q quand L varie d\'une unit&eacute;','La production totale Q','Le rapport K/L'],
+    0,
+    'PM<sub>L</sub> = Q/L, c\'est la production moyenne par travailleur. &Agrave; ne pas confondre avec Pm = &Delta;Q/&Delta;L qui est marginale.',
+    'PM = Q/L (moyenne), Pm = &Delta;Q/&Delta;L (marginale)'),
 
-  // Q2. Cm = dCT/dq
+  // Q2. Cm vs CM (concept)
   Q('Co&ucirc;ts','Facile',1,'Cm',
-    'Le co&ucirc;t marginal Cm est &eacute;gal &agrave; :',
-    ['CT/q (CM)','CV/q (CVM)','dCT/dq','CF + CV (CT)'],
-    2,
-    'Cm = dCT/dq, la d&eacute;riv&eacute;e du co&ucirc;t total par rapport &agrave; la quantit&eacute;. CM = CT/q est la moyenne, pas le marginal.',
-    'Cm = d&eacute;riv&eacute;e de CT'),
+    'La diff&eacute;rence entre le co&ucirc;t moyen CM et le co&ucirc;t marginal Cm est :',
+    ['CM = dCT/dq, Cm = CT/q (invers&eacute;)','CM = CT/q (moyen), Cm = dCT/dq (marginal)','CM = Cm, ce sont les m&ecirc;mes','CM = CV/q, Cm = CF/q'],
+    1,
+    'CM = CT/q est le co&ucirc;t moyen par unit&eacute;. Cm = dCT/dq est le co&ucirc;t suppl&eacute;mentaire pour produire une unit&eacute; suppl&eacute;mentaire. Le marginal n\'est pas la moyenne.',
+    'CM = CT/q ; Cm = dCT/dq'),
 
-  // Q3. TMST = PmL/PmK
+  // Q3. TMST interpretation
   Q('Production','Facile',1,'TMST',
-    'Le TMST (taux marginal de substitution technique) est le rapport :',
-    ['Des prix P<sub>L</sub>/P<sub>K</sub>','Des productivit&eacute;s Pm<sub>L</sub>/Pm<sub>K</sub>','Des quantit&eacute;s Q/L','Des co&ucirc;ts CT/q'],
+    'Le TMST (taux marginal de substitution technique) repr&eacute;sente :',
+    ['Le rapport des prix des inputs','La pente de l\'isoquante, soit Pm<sub>L</sub>/Pm<sub>K</sub>','La pente de l\'isoco&ucirc;t','Le rapport K/L optimal'],
     1,
-    'TMST = Pm<sub>L</sub>/Pm<sub>K</sub>. Il mesure de combien on peut r&eacute;duire K si on augmente L d\'une unit&eacute; &agrave; production constante.',
-    'TMST = PmL/PmK (travail/capital)'),
+    'Le TMST est la pente de l\'isoquante. Il mesure combien d\'unit&eacute;s de K on peut remplacer par 1 unit&eacute; de L &agrave; production constante. TMST = PmL/PmK.',
+    'TMST = pente isoquante = PmL/PmK'),
 
-  // Q4. p = Cm (offre CPP)
-  Q('Offre','Facile',1,'Offre',
-    'En concurrence pure et parfaite, la quantit&eacute; optimale est trouv&eacute;e par la r&egrave;gle :',
-    ['p = CM','p = CVM','p = Cm','p = CT'],
-    2,
-    'En CPP, l\'entreprise produit jusqu\'&agrave; ce que p = Cm. C\'est la condition d\'optimalit&eacute;.',
-    'p = Cm en CPP'),
-
-  // Q5. Profit
-  Q('Offre','Facile',1,'Profit',
-    'Le profit &pi; d\'une entreprise en CPP est :',
-    ['&pi; = p&middot;q (RT)','&pi; = CT(q) (co&ucirc;t)','&pi; = p&middot;q &minus; CT(q)','&pi; = CT(q) &minus; p&middot;q'],
-    2,
-    '&pi; = RT &minus; CT = p&middot;q &minus; CT(q). Attention au signe : le profit = recette totale moins co&ucirc;t total.',
-    '&pi; = RT &minus; CT'),
-
-  // Q6. QO = QD (equilibre marche)
-  Q('March&eacute;','Facile',1,'&Eacute;quilibre',
-    'L\'&eacute;quilibre du march&eacute; en CPP est atteint quand :',
-    ['Q<sub>O</sub> &gt; Q<sub>D</sub> (surplus)','Q<sub>O</sub> &lt; Q<sub>D</sub> (p&eacute;nurie)','Q<sub>O</sub> = Q<sub>D</sub>','Q<sub>O</sub> + Q<sub>D</sub> = 0'],
-    2,
-    '&Agrave; l\'&eacute;quilibre, l\'offre totale QO est &eacute;gale &agrave; la demande totale QD. On r&eacute;sout QO = QD pour trouver p*.',
-    'QO = QD &rarr; p*'),
-
-  // Q7. Seuil fermeture = min CVM
-  Q('March&eacute;','Facile',1,'Fermeture',
-    'Le seuil de fermeture &agrave; court terme correspond au prix &eacute;gal :',
-    ['Au minimum du CM','Au minimum du CVM','Au CF moyen','Au co&ucirc;t marginal maximum'],
+  // Q4. Isoquant properties
+  Q('Production','Facile',1,'Isoquante',
+    'Une isoquante est une courbe qui repr&eacute;sente des combinaisons de L et K :',
+    ['Ayant le m&ecirc;me co&ucirc;t total','Donnant la m&ecirc;me production Q','Donnant le m&ecirc;me profit','De m&ecirc;me pente'],
     1,
-    'Le seuil de fermeture = min CVM. En dessous, l\'entreprise ne couvre pas ses CV et doit fermer &agrave; CT. Ne pas confondre avec seuil de rentabilit&eacute; (min CM).',
-    'Fermeture = min CVM'),
+    'Une isoquante relie toutes les combinaisons (L,K) qui produisent le m&ecirc;me niveau de production Q. Elle est d&eacute;croissante et convexe.',
+    'Isoquante = m&ecirc;me Q, pente n&eacute;gative'),
 
-  // Q8. Decision court terme
+  // Q5. Isocost slope interpretation
+  Q('Production','Moyen',1,'Isoco&ucirc;t',
+    'Si le prix du travail P<sub>L</sub> augmente, la droite d\'isoco&ucirc;t devient :',
+    ['Plus plate (pente -PL/PK diminue)','Plus pentue (pente -PL/PK augmente en valeur absolue)','Se d&eacute;place parall&egrave;lement vers l\'ext&eacute;rieur','Ne change pas'],
+    1,
+    'Isoco&ucirc;t: CT = P<sub>L</sub>L + P<sub>K</sub>K, pente = -P<sub>L</sub>/P<sub>K</sub>. Si P<sub>L</sub> augmente, le rapport P<sub>L</sub>/P<sub>K</sub> augmente, la pente devient plus raide (plus n&eacute;gative).',
+    'P<sub>L</sub>&uarr; &rarr; pente isoco&ucirc;t plus raide'),
+
+  // Q6. Optimum: tangency concept
+  Q('Production','Moyen',1,'Optimum',
+    '&Agrave; l\'optimum du producteur, on a tangence entre :',
+    ['L\'isoquante et l\'axe des abscisses','L\'isoquante et l\'isoco&ucirc;t (TMST = P<sub>L</sub>/P<sub>K</sub>)','L\'isoco&ucirc;t et la fonction de production','La droite de budget et la courbe de demande'],
+    1,
+    '&Agrave; l\'optimum, la pente de l\'isoquante (TMST) &eacute;gale la pente de l\'isoco&ucirc;t (-P<sub>L</sub>/P<sub>K</sub>). La productivit&eacute; marginale par euro est &eacute;galis&eacute;e entre les inputs.',
+    'Optimum = TMST = P<sub>L</sub>/P<sub>K</sub> (tangence)'),
+
+  // Q7. p = Cm (optimalite)
+  Q('Offre','Facile',1,'p=Cm',
+    'En concurrence pure et parfaite, l\'entreprise maximise son profit quand :',
+    ['p = CM','p = Cm','p = CT','p = CVM'],
+    1,
+    'En CPP, l\'entreprise maximise son profit en produisant jusqu\'&agrave; ce que p = Cm. Si p &gt; Cm, augmenter q augmente le profit. Si p &lt; Cm, r&eacute;duire q augmente le profit.',
+    'Max profit &rarr; p = Cm'),
+
+  // Q8. Short run decision
   Q('March&eacute;','Moyen',1,'D&eacute;cision',
-    'Si le prix p est compris entre le min CVM et le min CM, l\'entreprise doit :',
-    ['Fermer d&eacute;finitivement','Produire avec une perte','Augmenter ses prix','Produire &agrave; profit nul'],
+    'Une entreprise produit &agrave; court terme avec perte (mais sans fermer) quand :',
+    ['p &gt; min CM (profit positif)','min CVM &lt; p &lt; min CM','p &lt; min CVM (fermeture)','p = min CM (profit nul)'],
     1,
-    'Entre min CVM et min CM, l\'entreprise couvre ses CV mais pas tous ses CF. Elle produit avec une perte &agrave; court terme (pr&eacute;f&eacute;rable &agrave; fermer et perdre tous les CF).',
-    'min CVM < p < min CM &rarr; produire avec perte'),
+    'Entre min CVM et min CM, l\'entreprise couvre ses CV mais pas tous ses CF. Elle produit avec perte car c\'est mieux que fermer et perdre tous les CF. &Agrave; long terme elle pourra sortir.',
+    'min CVM &lt; p &lt; min CM &rarr; produire avec perte'),
 
   // ===== SECTION 2: TD CHAP 1+2 (Q9-Q16) =====
-  // Q9. Calcul PM
+  // Q9. PM calculation
   Q('Production','Facile',2,'PM',
     'Si Q = 100 avec L = 5 travailleurs, que vaut PM<sub>L</sub> ?',
     ['5 (L/Q)','20','100 (Q)','105 (Q+L)'],
     1,
-    'PM<sub>L</sub> = Q/L = 100/5 = 20. C\'est la production moyenne par travailleur.',
+    'PM<sub>L</sub> = Q/L = 100/5 = 20. En moyenne, chaque travailleur produit 20 unit&eacute;s.',
     'PM = 100/5 = 20'),
 
-  // Q10. Calcul Pm
+  // Q10. Pm calculation
   Q('Production','Facile',2,'Pm',
     'Si Q passe de 80 &agrave; 96 quand L passe de 4 &agrave; 5, que vaut Pm<sub>L</sub> ?',
     ['10','12','14','16'],
     3,
-    'Pm<sub>L</sub> = &Delta;Q/&Delta;L = (96&minus;80)/(5&minus;4) = 16/1 = 16.',
+    'Pm<sub>L</sub> = &Delta;Q/&Delta;L = (96&minus;80)/(5&minus;4) = 16/1 = 16. Le 5&egrave;me travailleur ajoute 16 &agrave; la production.',
     'Pm = (96&minus;80)/(5&minus;4) = 16'),
 
   // Q11. TMST Cobb-Douglas
@@ -392,61 +397,61 @@ var QUESTIONS = [
     'Si Q = 20L<sup>0,7</sup>K<sup>0,3</sup>, le TMST simplifi&eacute; est :',
     ['14K/6L','6K/14L (invers&eacute;)','14L/6K (PmK/PmL)','3K/7L (exposants faux)'],
     0,
-    'Pm<sub>L</sub>=14L<sup>-0,3</sup>K<sup>0,3</sup>, Pm<sub>K</sub>=6L<sup>0,7</sup>K<sup>-0,7</sup>. TMST = PmL/PmK = (14K)/(6L).',
+    'Pm<sub>L</sub>=14L<sup>-0,3</sup>K<sup>0,3</sup>, Pm<sub>K</sub>=6L<sup>0,7</sup>K<sup>-0,7</sup>. TMST = PmL/PmK = (14K)/(6L). Intuition: avec ce TMST, pour 1L suppl&eacute;mentaire on peut r&eacute;duire K de 14/6.',
     'TMST = (&alpha;K)/(&beta;L) = 14K/6L'),
 
-  // Q12. Rendements echelle
+  // Q12. Returns to scale + interpretation
   Q('Production','Moyen',2,'Rendements',
-    'Si Q = 50L<sup>0,6</sup>K<sup>0,4</sup>, les rendements d\'&eacute;chelle sont :',
-    ['Croissants (&alpha;+&beta; &gt; 1)','Constants (&alpha;+&beta; = 1)','D&eacute;croissants (&alpha;+&beta; &lt; 1)','Ind&eacute;termin&eacute;s'],
+    'Si Q = 50L<sup>0,6</sup>K<sup>0,4</sup>, les rendements d\'&eacute;chelle sont constants car :',
+    ['&alpha;+&beta; &gt; 1 (&eacute;conomies d\'&eacute;chelle)','&alpha;+&beta; = 1 (doubler L et K double Q)','&alpha;+&beta; &lt; 1 (d&eacute;s&eacute;conomies)','&alpha;+&beta; = 0 (ind&eacute;termin&eacute;)'],
     1,
-    '&alpha;+&beta; = 0,6+0,4 = 1 &rarr; rendements constants. Si on double L et K, Q double.',
+    '&alpha;+&beta; = 0,6+0,4 = 1 &rarr; rendements constants. Si on multiplie L et K par t, Q est multipli&eacute; par t. Ni &eacute;conomies ni d&eacute;s&eacute;conomies d\'&eacute;chelle.',
     '&alpha;+&beta; = 1 &rarr; constants'),
 
   // Q13. Optimum: TMST = PL/PK
   Q('Production','Moyen',2,'Optimum',
-    '&Agrave; l\'optimum du producteur, TMST = 3K/2L, P<sub>L</sub> = 6, P<sub>K</sub> = 2. La relation K = f(L) est :',
+    '&Agrave; l\'optimum du producteur, TMST = 3K/2L, P<sub>L</sub> = 6, P<sub>K</sub> = 2. La combinaison optimale v&eacute;rifie :',
     ['K = L','K = 2L','K = 3L','K = 0,5L'],
     1,
-    'TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; 3K/2L = 6/2 = 3 &rarr; 3K = 6L &rarr; K = 2L.',
-    '3K/2L = 3 &rarr; K = 2L'),
+    'TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; 3K/2L = 6/2 = 3 &rarr; 3K = 6L &rarr; K = 2L. Graphiquement: le point de tangence entre isoquante et isoco&ucirc;t se trouve sur la droite K=2L.',
+    '3K/2L=3 &rarr; K=2L'),
 
-  // Q14. Identifier CF et CVM
+  // Q14. CF + CVM
   Q('Co&ucirc;ts','Facile',2,'CF/CVM',
-    'Si CT = 3q<sup>2</sup> + 60q + 7000, le CF et le CVM sont :',
+    'Si CT = 3q<sup>2</sup> + 60q + 7000, que valent CF et CVM ?',
     ['CF=60, CVM=3q+60+7000/q','CF=7000, CVM=3q+60','CF=3q<sup>2</sup>, CVM=7000/q','CF=0, CVM=3q<sup>2</sup>+60q'],
     1,
-    'CF = terme constant = 7000. CV = CT&minus;CF = 3q<sup>2</sup>+60q. CVM = CV/q = 3q+60.',
+    'CF = terme constant = 7000 (ne d&eacute;pend pas de q). CV = CT&minus;CF = 3q<sup>2</sup>+60q. CVM = CV/q = 3q+60. Le CF est r&eacute;parti sur tous les q dans le CM mais PAS dans le CVM.',
     'CF = 7000, CVM = 3q+60'),
 
   // Q15. q* from p = Cm
   Q('Offre','Moyen',2,'q*',
-    'Si CT = q<sup>2</sup> + 6q + 100 et p = 80, la quantit&eacute; optimale q* est :',
-    ['27','37','47','57'],
-    1,
-    'Cm = dCT/dq = 2q+6. p = Cm &rarr; 80 = 2q+6 &rarr; 2q = 74 &rarr; q = 37.',
+    'Si CT = q<sup>2</sup> + 6q + 100 et p = 80, la quantit&eacute; optimale q* r&eacute;sout :',
+    ['80 = 2q + 6 &rarr; q = 37','80 = q + 6 &rarr; q = 74 (d&eacute;riv&eacute;e fausse)','2q = 80 &rarr; q = 40 (oubli +6)','80 = 2q &rarr; q = 40'],
+    0,
+    'Cm = dCT/dq = 2q+6. p = Cm &rarr; 80 = 2q+6 &rarr; 2q = 74 &rarr; q = 37. V&eacute;rification: CT(37) = 1369+222+100 = 1691. RT = 80&times;37 = 2960. &pi; = 2960&minus;1691 = 1269.',
     'p=Cm &rarr; 80=2q+6 &rarr; q=37'),
 
-  // Q16. Multi-step: CT -> Cm -> q* -> pi
+  // Q16. Multi-step profit
   Q('Offre','Difficile',2,'Profit multi-step',
-    'CT = 3y<sup>2</sup> + 60y + 7000 et p = 390. Trouvez d\'abord q* (quantit&eacute; optimale), puis le profit &pi;.',
-    ['&pi; = 2075','&pi; = 875 (erreur: +60 au lieu de &minus;60 &rarr; y=75)','&pi; = 9075 (oublie CF=7000)','&pi; = 21450 (RT seulement, oublie CT)'],
+    'CT = 3y<sup>2</sup> + 60y + 7000 et p = 390. Le profit &pi; est :',
+    ['&pi; = 2075','&pi; = 875 (erreur: 390+60 = 450 au lieu de 390&minus;60 = 330)','&pi; = 9075 (oublie CF=7000 dans CT)','&pi; = 21450 (RT seulement, oublie CT)'],
     0,
-    '&Eacute;tape 1: Cm = 6y+60. &Eacute;tape 2: 390=6y+60 &rarr; y=55. &Eacute;tape 3: CT=3&times;3025+3300+7000=19375. &Eacute;tape 4: &pi;=21450&minus;19375=2075.',
+    '&Eacute;tape 1: Cm = 6y+60. &Eacute;tape 2: 390=6y+60 &rarr; y=55. &Eacute;tape 3: CT=3&times;3025+3300+7000=19375. &Eacute;tape 4: &pi;=21450&minus;19375=2075. Ne pas oublier de soustraire CT, surtout le CF=7000.',
     'Cm &rarr; y=55 ; CT=19375 ; &pi;=21450&minus;19375=2075'),
 
   // ===== SECTION 3: TD CHAP 3 (Q17-Q24) =====
   // Q17. QO=QD -> p*
   Q('March&eacute;','Moyen',3,'&Eacute;quilibre',
-    'Q<sub>O</sub> = 5p &minus; 50, Q<sub>D</sub> = 2050 &minus; 20p. Le prix d\'&eacute;quilibre p* est :',
-    ['74','84','94','104'],
+    'Q<sub>O</sub> = 5p &minus; 50, Q<sub>D</sub> = 2050 &minus; 20p. Le prix d\'&eacute;quilibre p* :',
+    ['p = 74','p = 84','p = 94','p = 104'],
     1,
-    '5p&minus;50 = 2050&minus;20p &rarr; 5p+20p = 2050+50 &rarr; 25p = 2100 &rarr; p = 84.',
-    '25p = 2100 &rarr; p = 84'),
+    '5p&minus;50 = 2050&minus;20p &rarr; 5p+20p = 2050+50 &rarr; 25p = 2100 &rarr; p = 84. Attention aux signes: quand on d&eacute;place -20p &agrave; gauche, il devient +20p.',
+    '25p=2100 &rarr; p=84'),
 
-  // Q18. Q* from p*
+  // Q18. Q* from equilibrium
   Q('March&eacute;','Moyen',3,'Q*',
-    'Suite : p* = 84. Q* = QO(p*) = ?',
+    'Suite: p* = 84. La quantit&eacute; totale d\'&eacute;quilibre Q* :',
     ['370','420 (5&times;84, oubli &minus;50)','2050 (QD sans p)','84 (confondu avec p)'],
     0,
     'Q* = QO(84) = 5&times;84 &minus; 50 = 420 &minus; 50 = 370. V&eacute;rification: QD(84) = 2050 &minus; 1680 = 370.',
@@ -454,60 +459,63 @@ var QUESTIONS = [
 
   // Q19. q* from individual supply
   Q('March&eacute;','Moyen',3,'q*',
-    'Chaque entreprise offre q = (p &minus; 10) / 2. &Agrave; p = 84, q* = ?',
-    ['37','32 (p/2 &minus; 10 = 42&minus;10, oubli parenth&egrave;ses)','42 (p/2, oubli &minus;10)','74 (p&minus;10, oubli /2)'],
+    'Chaque firme offre q = (p &minus; 10)/2. &Agrave; p = 84, q* = ?',
+    ['37','32 (84/2 &minus; 10, oubli parenth&egrave;ses)','42 (84/2, oubli &minus;10)','74 (84&minus;10, oubli /2)'],
     0,
-    'q = (84&minus;10)/2 = 74/2 = 37. Attention aux parenth&egrave;ses : le calcul est (84&minus;10)&divide;2, pas 84/2&minus;10.',
+    'q = (84 &minus; 10)/2 = 74/2 = 37. Toujours respecter l\'ordre: d\'abord la soustraction entre parenth&egrave;ses, puis la division par 2.',
     'q = (84&minus;10)/2 = 37'),
 
   // Q20. N = Q/q
   Q('March&eacute;','Facile',3,'N',
-    'Q* = 370 et q* = 37. Le nombre d\'entreprises N est :',
-    ['5 (2q*/Q* ou N diviseur faux)','10','37 (confondu avec q*)','370 (confondu avec Q*)'],
+    'Q* = 370 et q* = 37. Le nombre d\'entreprises N = ?',
+    ['5 (370/74 avec 2q)','10','37 (confondu avec q*)','370 (confondu avec Q*)'],
     1,
-    'N = Q*/q* = 370/37 = 10. Chaque entreprise produit 37 unit&eacute;s, le march&eacute; total est 370, donc 10 entreprises.',
+    'N = Q*/q* = 370/37 = 10. C\'est la quantit&eacute; totale divis&eacute;e par la quantit&eacute; produite par chaque firme. Ne pas confondre Q* (march&eacute;) et q* (firme).',
     'N = 370/37 = 10'),
 
-  // Q21. Seuil fermeture (calcul)
+  // Q21. Seuil fermeture
   Q('Co&ucirc;ts','Difficile',3,'Fermeture',
-    'Si CT = y<sup>2</sup> + 6y + 100, quel est le seuil de fermeture ?',
-    ['6 (min CVM)','26 (min CM = seuil rentabilit&eacute;)','10 (q au min CM)','100 (CF)'],
+    'CT = y<sup>2</sup> + 6y + 100. Le seuil de fermeture est :',
+    ['6 (min CVM = prix plancher &agrave; court terme)','26 (min CM = seuil de rentabilit&eacute;)','10 (q au min CM)','100 (CF)'],
     0,
-    'CVM = y+6. Min CVM &agrave; y=0 &rarr; CVM=6. Le seuil de fermeture = min CVM = 6. En dessous de p=6, l\'entreprise ferme.',
+    'CVM = y+6. Min CVM &agrave; y=0 &rarr; CVM=6. Seuil de fermeture = 6. Si p &lt; 6, l\'entreprise ne couvre pas ses CV et doit fermer. Si p=6, elle est indiff&eacute;rente (q=0 ou perte=CF).',
     'Fermeture = min CVM = 6'),
 
-  // Q22. Seuil rentabilite (calcul)
+  // Q22. Seuil rentabilite
   Q('Co&ucirc;ts','Difficile',3,'Rentabilit&eacute;',
-    'Si CT = y<sup>2</sup> + 6y + 100, quel est le seuil de rentabilit&eacute; ?',
+    'CT = y<sup>2</sup> + 6y + 100. Le seuil de rentabilit&eacute; est :',
     ['6 (min CVM)','26 (min CM)','10 (q au min CM)','100 (CF)'],
     1,
-    'CM = y+6+100/y. Min CM quand Cm=CM: 2y+6 = y+6+100/y &rarr; y=10 &rarr; CM=26. Rentabilit&eacute; = min CM = 26.',
+    'CM = y+6+100/y. Min CM quand Cm=CM: 2y+6 = y+6+100/y &rarr; y=10 &rarr; CM=26. Rentabilit&eacute; = 26. &Agrave; p=26, profit nul. Au-dessus, profit positif.',
     'Rentabilit&eacute; = min CM = 26'),
 
-  // Q23. Marche multi-step complet
+  // Q23. Marche complet (chained)
   Q('March&eacute;','Difficile',3,'March&eacute; complet',
-    'Q<sub>O</sub> = 5p &minus; 20, Q<sub>D</sub> = 310 &minus; 6p. Chaque firme a Cm = 2q + 4. Le nombre d\'entreprises N est :',
-    ['N = 5 (utilise 2q au lieu de q: 130/26=5)','N = 10','N = 13 (confondu avec q*)','N = 130 (confondu avec Q*)'],
+    'Q<sub>O</sub> = 5p &minus; 20, Q<sub>D</sub> = 310 &minus; 6p. Chaque firme a Cm = 2q + 4. N = ?',
+    ['N = 5 (130/26 avec 2q)','N = 10','N = 13 (confondu avec q*)','N = 130 (confondu avec Q*)'],
     1,
-    '5p&minus;20=310&minus;6p &rarr; 11p=330 &rarr; p=30. Q*=5&times;30&minus;20=130. p=Cm &rarr; 30=2q+4 &rarr; q=13. N=130/13=10.',
+    '5p&minus;20=310&minus;6p &rarr; 11p=330 &rarr; p=30. Q*=5&times;30&minus;20=130. p=Cm &rarr; 30=2q+4 &rarr; q=13. N=130/13=10. Encha&icirc;nement complet: prix &rarr; march&eacute; &rarr; firme &rarr; nombre.',
     'p=30 ; Q=130 ; q=13 ; N=130/13=10'),
 
-  // Q24. Relation Cm / CM
+  // Q24. Relation Cm/CM + interpretation equilibre firme
   Q('Co&ucirc;ts','Moyen',3,'Cm vs CM',
-    'Quand le co&ucirc;t marginal Cm est inf&eacute;rieur au co&ucirc;t moyen CM, que se passe-t-il ?',
-    ['Le CM augmente','Le CM diminue','Le CM est constant','Le profit est maximal'],
+    'Quand le co&ucirc;t marginal Cm est inf&eacute;rieur au co&ucirc;t moyen CM, le CM :',
+    ['Augmente (Cm tire le CM vers le haut)','Diminue (Cm tire le CM vers le bas)','Reste constant','Devient &eacute;gal &agrave; z&eacute;ro'],
     1,
-    'Quand Cm &lt; CM, le marginal tire le moyen vers le bas, donc CM diminue. Et inversement, quand Cm &gt; CM, CM augmente.',
-    'Cm &lt; CM &rarr; CM &darr; (le marginal tire le moyen)'),
+    'Le marginal tire le moyen vers lui. Si Cm &lt; CM, la derni&egrave;re unit&eacute; co&ucirc;te moins que la moyenne, donc la moyenne baisse. Inversement, si Cm &gt; CM, la moyenne monte. C\'est pourquoi le Cm coupe le CM en son minimum.',
+    'Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;'),
 ];
 
 // ===== FLASHCARDS =====
 var FLASH=[
   ['PM<sub>L</sub> = ?','Q / L (production moyenne)'],
   ['Pm<sub>L</sub> = ?','&Delta;Q / &Delta;L (production marginale)'],
-  ['TMST = ?','Pm<sub>L</sub> / Pm<sub>K</sub>'],
+  ['TMST = ?','Pm<sub>L</sub> / Pm<sub>K</sub> (pente isoquante)'],
+  ['Isoquante = ?','Combinaisons L-K donnant m&ecirc;me Q'],
+  ['Isoco&ucirc;t = ?','CT = P<sub>L</sub>L + P<sub>K</sub>K (m&ecirc;me co&ucirc;t)'],
+  ['Pente isoco&ucirc;t','&minus;P<sub>L</sub>/P<sub>K</sub>'],
+  ['Optimum producteur','TMST = P<sub>L</sub>/P<sub>K</sub> (tangence)'],
   ['Rendements Cobb-Douglas','&alpha;+&beta; = 1 &rarr; constants'],
-  ['Optimum producteur','TMST = P<sub>L</sub>/P<sub>K</sub>'],
   ['CF = ?','Terme constant dans CT(q)'],
   ['Cm = ?','dCT/dq (d&eacute;riv&eacute;e)'],
   ['CVM = ?','CV / q (CF exclu)'],
@@ -517,16 +525,13 @@ var FLASH=[
   ['&Eacute;quilibre march&eacute;','Q<sub>O</sub> = Q<sub>D</sub>'],
   ['Nombre entreprises','N = Q* / q*'],
   ['Seuil fermeture','min CVM (p en dessous = q=0)'],
-  ['Seuil rentabilit&eacute;','min CM (p au dessus = profit &ge; 0)'],
+  ['Seuil rentabilit&eacute;','min CM (p au-dessus = profit &ge; 0)'],
   ['Relation Cm / CM','Cm &lt; CM &rarr; CM &darr; ; Cm &gt; CM &rarr; CM &uarr;'],
-  ['D&eacute;cision court terme','p &lt; min CVM &rarr; fermer. min CVM &lt; p &lt; min CM &rarr; perte'],
+  ['D&eacute;cision court terme','p &lt; min CVM &rarr; fermer. Entre les deux &rarr; perte'],
   ['Profit multi-step','Deriver &rarr; p=Cm &rarr; q* &rarr; RT&minus;CT'],
   ['March&eacute; multi-step','QO=QD &rarr; p &rarr; Q &rarr; p=Cm &rarr; q &rarr; N=Q/q'],
-  ['TMST &agrave; l\'optimum','TMST = P<sub>L</sub>/P<sub>K</sub> &rarr; isole K=f(L)'],
-  ['Fermer ou produire ?','Comparer p &agrave; min CVM et min CM'],
-  ['Seuil fermeture vs rentabilit&eacute;','CVM &lt; CM toujours. Ne pas les confondre.'],
-  ['Parenth&egrave;ses offre','q = (p&minus;10)/2 &rarr; (84&minus;10)/2 = 37, pas 84/2&minus;10'],
-  ['Signe &eacute;quation','5p&minus;50 = 2050&minus;20p &rarr; 5p+20p = 2050+50'],
+  ['TMST interpr&eacute;tation','Combien de K remplac&eacute;s par 1L &agrave; Q constant'],
+  ['Isoquante convexe','TMST d&eacute;croissant quand L augmente'],
 ];
 
 // ===== ENGINE =====
